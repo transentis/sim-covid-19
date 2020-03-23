@@ -59,7 +59,7 @@ class simulation_model():
         self.dt = 0.25
         self.starttime = 1
         self.stoptime = 3000
-        self.units = 'Months'
+        self.units = 'Days'
         self.method = 'Euler'
         self.equations = {
 
@@ -69,22 +69,25 @@ class simulation_model():
         'deathsD'          : lambda t: ( (0.0) if ( t  <=  self.starttime ) else (self.memoize('deathsD',t-self.dt) + self.dt * ( self.memoize('deathRateDr',t-self.dt) )) ),
         'infectiousPopulationI'          : lambda t: ( (2.0) if ( t  <=  self.starttime ) else (self.memoize('infectiousPopulationI',t-self.dt) + self.dt * ( self.memoize('infectionRateIr',t-self.dt) - ( self.memoize('recoveryRateRr',t-self.dt) + self.memoize('deathRateDr',t-self.dt) ) )) ),
         'recoveredPopulationR'          : lambda t: ( (0.0) if ( t  <=  self.starttime ) else (self.memoize('recoveredPopulationR',t-self.dt) + self.dt * ( self.memoize('recoveryRateRr',t-self.dt) )) ),
-        'susceptiblePopulationS'          : lambda t: ( (2000000.0) if ( t  <=  self.starttime ) else (self.memoize('susceptiblePopulationS',t-self.dt) + self.dt * ( -1 * ( self.memoize('infectionRateIr',t-self.dt) ) )) ),
+        'susceptiblePopulationS'          : lambda t: ( (80000000.0) if ( t  <=  self.starttime ) else (self.memoize('susceptiblePopulationS',t-self.dt) + self.dt * ( -1 * ( self.memoize('infectionRateIr',t-self.dt) ) )) ),
         
     
         # Flows
         'deathRateDr'             : lambda t: max([0 , self.memoize('infectiousPopulationI', t) * self.memoize('lethalityL', t)]),
-        'infectionRateIr'             : lambda t: max([0 , ( self.memoize('contactRateC', t) * self.memoize('susceptiblePopulationS', t) * self.memoize('infectivityI', t) ) * ( self.memoize('infectiousPopulationI', t) / self.memoize('totalPopulationN', t) )]),
+        'infectionRateIr'             : lambda t: max([0 , ( self.memoize('contactRateC', t) * self.memoize('susceptiblePopulationS', t) * self.memoize('infectivityI', t) ) * ( self.memoize('infectiousPopulationI', t) / self.memoize('totalPopulationTp', t) )]),
         'recoveryRateRr'             : lambda t: max([0 , self.memoize('infectiousPopulationI', t) / self.memoize('averageDurationD', t)]),
         
     
         # converters
-        'averageDurationD'      : lambda t: 10.0,
-        'contactRateC'      : lambda t: 5.0,
-        'hospitalBeds'      : lambda t: 500.0,
-        'infectivityI'      : lambda t: 0.2,
-        'lethalityL'      : lambda t: 0.02,
-        'totalPopulationN'      : lambda t: 2000000.0,
+        'averageDurationD'      : lambda t: 20.0,
+        'contactRateC'      : lambda t: 20.0,
+        'infectivityI'      : lambda t: 0.005,
+        'intensiveCareRate'      : lambda t: 0.1,
+        'intensiveCareUnitsAvailable'      : lambda t: 30000.0,
+        'intensiveCareUnitsNeeded'      : lambda t: self.memoize('infectiousPopulationI', t) * self.memoize('intensiveCareRate', t),
+        'lethalityL'      : lambda t: 0.05,
+        'netPopulationN'      : lambda t: self.memoize('totalPopulationTp', t) - self.memoize('deathsD', t),
+        'totalPopulationTp'      : lambda t: self.memoize('susceptiblePopulationS', t) + self.memoize('infectiousPopulationI', t) + self.memoize('recoveredPopulationR', t),
         
     
         # gf
@@ -112,7 +115,7 @@ class simulation_model():
     
         self.stocks = ['deathsD',   'infectiousPopulationI',   'recoveredPopulationR',   'susceptiblePopulationS'  ]
         self.flows = ['deathRateDr',   'infectionRateIr',   'recoveryRateRr'  ]
-        self.converters = ['averageDurationD',   'contactRateC',   'hospitalBeds',   'infectivityI',   'lethalityL',   'totalPopulationN'  ]
+        self.converters = ['averageDurationD',   'contactRateC',   'infectivityI',   'intensiveCareRate',   'intensiveCareUnitsAvailable',   'intensiveCareUnitsNeeded',   'lethalityL',   'netPopulationN',   'totalPopulationTp'  ]
         self.gf = []
         self.constants= []
         self.events = [
@@ -607,5 +610,5 @@ class simulation_model():
         self.stoptime = v
     
     def specs(self):
-        return self.starttime, self.stoptime, self.dt, 'Months', 'Euler'
+        return self.starttime, self.stoptime, self.dt, 'Days', 'Euler'
     
