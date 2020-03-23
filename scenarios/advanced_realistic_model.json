@@ -1,0 +1,9 @@
+{
+    "smAdvancedRealistic":{
+        "source":"simulation_models/advanced_realistic_epidemic_model.stmx",
+        "model":"simulation_models/advanced_realistic_epidemic_model",
+         "scenarios":{
+            "base":{}
+         }
+    }
+}
