@@ -68,8 +68,8 @@ def update_graphs(contact_rate):
             scenario_managers=["smAdvancedRealistic"],
             scenarios=["interactiveScenario"],
             title="Available Intensive Care vs. Needed Intensive Care",
-            x_label="Intensive Care Units",
-            y_label="Days",
+            x_label="Days",
+            y_label="Intensive Care Units",
             equations=[
                 "intensiveCareUnitsNeeded",
                 "intensiveCareUnitsAvailable"

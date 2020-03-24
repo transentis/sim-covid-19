@@ -58,7 +58,7 @@ class simulation_model():
         # Simulation Buildins
         self.dt = 0.25
         self.starttime = 1
-        self.stoptime = 365
+        self.stoptime = 1095
         self.units = 'Days'
         self.method = 'Euler'
         self.equations = {
