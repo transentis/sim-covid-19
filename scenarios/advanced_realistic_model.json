@@ -3,7 +3,15 @@
         "source":"simulation_models/advanced_realistic_epidemic_model.stmx",
         "model":"simulation_models/advanced_realistic_epidemic_model",
          "scenarios":{
-            "base":{}
+            "base":{},
+            "contactLargeGroups":{},
+            "contactSmallGroups":{},
+            "contactTwoPeople":{},
+            "interactiveScenario":{
+                "constants":{
+                    "contactRateC":20              
+                }
+            }
          }
     }
 }

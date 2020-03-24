@@ -58,7 +58,7 @@ class simulation_model():
         # Simulation Buildins
         self.dt = 0.25
         self.starttime = 1
-        self.stoptime = 3000
+        self.stoptime = 365
         self.units = 'Days'
         self.method = 'Euler'
         self.equations = {
@@ -67,7 +67,7 @@ class simulation_model():
         
     
         'deathsD'          : lambda t: ( (0.0) if ( t  <=  self.starttime ) else (self.memoize('deathsD',t-self.dt) + self.dt * ( self.memoize('deathRateDr',t-self.dt) )) ),
-        'infectiousPopulationI'          : lambda t: ( (2.0) if ( t  <=  self.starttime ) else (self.memoize('infectiousPopulationI',t-self.dt) + self.dt * ( self.memoize('infectionRateIr',t-self.dt) - ( self.memoize('recoveryRateRr',t-self.dt) + self.memoize('deathRateDr',t-self.dt) ) )) ),
+        'infectiousPopulationI'          : lambda t: ( (2000.0) if ( t  <=  self.starttime ) else (self.memoize('infectiousPopulationI',t-self.dt) + self.dt * ( self.memoize('infectionRateIr',t-self.dt) - ( self.memoize('recoveryRateRr',t-self.dt) + self.memoize('deathRateDr',t-self.dt) ) )) ),
         'recoveredPopulationR'          : lambda t: ( (0.0) if ( t  <=  self.starttime ) else (self.memoize('recoveredPopulationR',t-self.dt) + self.dt * ( self.memoize('recoveryRateRr',t-self.dt) )) ),
         'susceptiblePopulationS'          : lambda t: ( (80000000.0) if ( t  <=  self.starttime ) else (self.memoize('susceptiblePopulationS',t-self.dt) + self.dt * ( -1 * ( self.memoize('infectionRateIr',t-self.dt) ) )) ),
         
@@ -85,7 +85,7 @@ class simulation_model():
         'intensiveCareRate'      : lambda t: 0.1,
         'intensiveCareUnitsAvailable'      : lambda t: 30000.0,
         'intensiveCareUnitsNeeded'      : lambda t: self.memoize('infectiousPopulationI', t) * self.memoize('intensiveCareRate', t),
-        'lethalityL'      : lambda t: 0.05,
+        'lethalityL'      : lambda t: 0.004,
         'netPopulationN'      : lambda t: self.memoize('totalPopulationTp', t) - self.memoize('deathsD', t),
         'totalPopulationTp'      : lambda t: self.memoize('susceptiblePopulationS', t) + self.memoize('infectiousPopulationI', t) + self.memoize('recoveredPopulationR', t),
         

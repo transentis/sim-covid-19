@@ -7,9 +7,9 @@
 		<vendor>isee systems, inc.</vendor>
 		<product version="1.9.4" isee:build_number="1992" isee:saved_by_v1="true" lang="en">Stella Architect</product>
 	</header>
-	<sim_specs isee:sim_duration="1" isee:simulation_delay="0.000333444" isee:restore_on_start="false" method="Euler" time_units="Days" isee:instantaneous_flows="false">
+	<sim_specs isee:sim_duration="1" isee:simulation_delay="0.00274725" isee:restore_on_start="false" method="Euler" time_units="Days" isee:instantaneous_flows="false">
 		<start>1</start>
-		<stop>3000</stop>
+		<stop>365</stop>
 		<dt reciprocal="true">4</dt>
 	</sim_specs>
 	<isee:prefs show_module_prefix="true" live_update_on_drag="true" show_restore_buttons="false" layer="model" interface_scale_ui="true" interface_max_page_width="10000" interface_max_page_height="10000" interface_min_page_width="0" interface_min_page_height="0" saved_runs="5" keep="false" rifp="true"/>
@@ -32,7 +32,7 @@
 				<eqn>0.005</eqn>
 			</aux>
 			<stock name="Infectious Population I">
-				<eqn>2</eqn>
+				<eqn>2000</eqn>
 				<inflow>Infection_Rate_IR</inflow>
 				<outflow>Recovery_Rate_RR</outflow>
 				<outflow>Death_Rate_DR</outflow>
@@ -61,7 +61,7 @@
 				<non_negative/>
 			</flow>
 			<aux name="Lethality L">
-				<eqn>0.05</eqn>
+				<eqn>0.004</eqn>
 			</aux>
 			<aux name="Intensive Care Units Available">
 				<eqn>30000</eqn>
@@ -124,7 +124,7 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="826" page_height="579" isee:page_cols="2" isee:page_rows="2" isee:scroll_x="145" isee:scroll_y="7.77778" zoom="180" isee:popup_graphs_are_comparative="true" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="826" page_height="579" isee:page_cols="2" isee:page_rows="2" isee:scroll_x="292.778" isee:scroll_y="49.4444" zoom="180" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="#095572" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -211,7 +211,7 @@
 						<pt x="633.611" y="184.778"/>
 					</pts>
 				</flow>
-				<connector uid="7" polarity="+" isee:polarity_placement="outside" angle="284.143">
+				<connector uid="7" polarity="+" isee:polarity_placement="outside" angle="334.094">
 					<from>Infectious_Population_I</from>
 					<to>Recovery_Rate_RR</to>
 				</connector>
@@ -220,8 +220,8 @@
 					<from>Average_Duration_d</from>
 					<to>Recovery_Rate_RR</to>
 				</connector>
-				<stacked_container uid="9" x="146.445" y="221.084" width="408.333" height="277.778" minimized="true">
-					<table width="408.333" height="277.778">
+				<stacked_container uid="9" x="245.223" y="149.417" width="469.555" height="274.445" minimized="true">
+					<table width="469.555" height="274.445">
 						<item type="time"/>
 						<item>
 							<entity name="Infection_Rate_IR"/>
@@ -240,6 +240,18 @@
 						</item>
 						<item>
 							<entity name="Net_Population_N"/>
+						</item>
+						<item>
+							<entity name="Total_Population_TP"/>
+						</item>
+						<item>
+							<entity name="Recovery_Rate_RR"/>
+						</item>
+						<item>
+							<entity name="Death_Rate_DR"/>
+						</item>
+						<item>
+							<entity name="Lethality_L"/>
 						</item>
 					</table>
 				</stacked_container>

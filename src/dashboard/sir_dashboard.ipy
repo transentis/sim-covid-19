@@ -1,0 +1,99 @@
+%matplotlib inline
+import matplotlib.pyplot as plt
+from ipywidgets import interact
+import ipywidgets as widgets
+    
+out1 = widgets.Output()
+out2 = widgets.Output()
+out3 = widgets.Output()
+out4 = widgets.Output()
+
+wdg_style_contact_rate = {'description_width': 'initial'}
+wdg_contact_rate=widgets.FloatSlider(
+        value=20,
+        min=1,
+        max=30,
+        step=1,
+        continuous_update=False,
+        description='Contact Rate',
+        style=wdg_style_contact_rate
+    )
+wdg_contact_rate.layout.width='400px'
+
+
+def event_handler_contact_rate(change):
+    update_graphs(change.new)
+    
+def update_graphs(contact_rate):
+    scenario= bptk.get_scenario("smAdvancedRealistic","interactiveScenario")
+
+    scenario.constants["contactRateC"]=contact_rate
+   
+
+    wdg_contact_rate.layout.visibility = 'visible'
+    
+    bptk.reset_simulation_model(scenario_manager="smAdvancedRealistic", scenario="interactiveScenario")
+
+    out1.clear_output(wait=True)
+    out2.clear_output(wait=True)
+    
+    with out1:
+        # turn of pyplot's interactive mode to ensure the plot is not created directly
+        plt.ioff()
+        # clear the widgets output ... otherwise we will end up with a long list of plots, one for each change of settings
+        
+        # create the plot, but don't show it yet
+        plot1=bptk.plot_scenarios(
+            scenario_managers=["smAdvancedRealistic"],
+            scenarios=["interactiveScenario"],
+            title="Recovered Population vs. Deaths",
+            x_label="Days",
+            y_label="Persons",
+            equations=[
+               "infectiousPopulationI",
+                "recoveredPopulationR",
+                "deathsD"
+            ],
+             series_names={
+            }
+        )
+        # show the plot
+        plt.show(plot1)
+        # turn interactive mode on again
+        plt.ion()  
+              
+    with out2:
+        plt.ioff()
+        plot2=bptk.plot_scenarios(
+            scenario_managers=["smAdvancedRealistic"],
+            scenarios=["interactiveScenario"],
+            title="Available Intensive Care vs. Needed Intensive Care",
+            x_label="Intensive Care Units",
+            y_label="Days",
+            equations=[
+                "intensiveCareUnitsNeeded",
+                "intensiveCareUnitsAvailable"
+            ],
+            series_names={
+            }
+        )
+        plt.show(plot2)
+        plt.ion()
+              
+
+wdg_contact_rate.observe(event_handler_contact_rate, names="value")
+
+tabbed_graphs = widgets.Tab(children = [out1, out2])
+tabbed_graphs.set_title(0, 'Population')
+tabbed_graphs.set_title(1, 'Intensive Care')
+
+display(tabbed_graphs)
+
+
+control_panel = widgets.HBox([wdg_contact_rate])
+display(control_panel)
+
+
+update_graphs(wdg_contact_rate.value)
+
+
