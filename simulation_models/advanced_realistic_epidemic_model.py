@@ -56,9 +56,9 @@ def LERP(x,points):
 class simulation_model():
     def __init__(self):
         # Simulation Buildins
-        self.dt = 0.25
+        self.dt = 1.0
         self.starttime = 1
-        self.stoptime = 1095
+        self.stoptime = 1500
         self.units = 'Days'
         self.method = 'Euler'
         self.equations = {
@@ -67,8 +67,8 @@ class simulation_model():
         
     
         'deathsD'          : lambda t: ( (0.0) if ( t  <=  self.starttime ) else (self.memoize('deathsD',t-self.dt) + self.dt * ( self.memoize('deathRateDr',t-self.dt) )) ),
-        'infectiousPopulationI'          : lambda t: ( (2000.0) if ( t  <=  self.starttime ) else (self.memoize('infectiousPopulationI',t-self.dt) + self.dt * ( self.memoize('infectionRateIr',t-self.dt) - ( self.memoize('recoveryRateRr',t-self.dt) + self.memoize('deathRateDr',t-self.dt) ) )) ),
-        'recoveredPopulationR'          : lambda t: ( (0.0) if ( t  <=  self.starttime ) else (self.memoize('recoveredPopulationR',t-self.dt) + self.dt * ( self.memoize('recoveryRateRr',t-self.dt) )) ),
+        'infectiousPopulationI'          : lambda t: ( (120.0) if ( t  <=  self.starttime ) else (self.memoize('infectiousPopulationI',t-self.dt) + self.dt * ( self.memoize('infectionRateIr',t-self.dt) - ( self.memoize('recoveryRateRr',t-self.dt) + self.memoize('deathRateDr',t-self.dt) ) )) ),
+        'recoveredPopulationR'          : lambda t: ( (15.0) if ( t  <=  self.starttime ) else (self.memoize('recoveredPopulationR',t-self.dt) + self.dt * ( self.memoize('recoveryRateRr',t-self.dt) )) ),
         'susceptiblePopulationS'          : lambda t: ( (80000000.0) if ( t  <=  self.starttime ) else (self.memoize('susceptiblePopulationS',t-self.dt) + self.dt * ( -1 * ( self.memoize('infectionRateIr',t-self.dt) ) )) ),
         
     
@@ -81,11 +81,11 @@ class simulation_model():
         # converters
         'averageDurationD'      : lambda t: 20.0,
         'contactRateC'      : lambda t: 20.0,
-        'infectivityI'      : lambda t: 0.005,
-        'intensiveCareRate'      : lambda t: 0.1,
+        'infectivityI'      : lambda t: 0.02,
+        'intensiveCareRate'      : lambda t: 0.002,
         'intensiveCareUnitsAvailable'      : lambda t: 30000.0,
         'intensiveCareUnitsNeeded'      : lambda t: self.memoize('infectiousPopulationI', t) * self.memoize('intensiveCareRate', t),
-        'lethalityL'      : lambda t: 0.004,
+        'lethalityL'      : lambda t: 0.001,
         'netPopulationN'      : lambda t: self.memoize('totalPopulationTp', t) - self.memoize('deathsD', t),
         'totalPopulationTp'      : lambda t: self.memoize('susceptiblePopulationS', t) + self.memoize('infectiousPopulationI', t) + self.memoize('recoveredPopulationR', t),
         

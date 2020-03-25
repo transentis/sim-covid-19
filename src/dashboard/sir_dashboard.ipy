@@ -55,7 +55,11 @@ def update_graphs(contact_rate):
                 "deathsD"
             ],
              series_names={
-            }
+                 "smAdvancedRealistic_interactiveScenario_infectiousPopulationI":"Infectious Population",
+                 "smAdvancedRealistic_interactiveScenario_recoveredPopulationR":"Recovered Population",
+                 "smAdvancedRealistic_interactiveScenario_deathsD":"Deaths"     
+            },
+            visualize_to_period=300
         )
         # show the plot
         plt.show(plot1)
@@ -75,7 +79,10 @@ def update_graphs(contact_rate):
                 "intensiveCareUnitsAvailable"
             ],
             series_names={
-            }
+                "smAdvancedRealistic_interactiveScenario_intensiveCareUnitsNeeded": "Intensive Care Needed",
+                "smAdvancedRealistic_interactiveScenario_intensiveCareUnitsAvailable": "Intensive Care Available"  
+            },
+            visualize_to_period=300
         )
         plt.show(plot2)
         plt.ion()

@@ -7,10 +7,10 @@
 		<vendor>isee systems, inc.</vendor>
 		<product version="1.9.4" isee:build_number="1992" isee:saved_by_v1="true" lang="en">Stella Architect</product>
 	</header>
-	<sim_specs isee:sim_duration="1" isee:simulation_delay="0.000914077" isee:restore_on_start="false" method="Euler" time_units="Days" isee:instantaneous_flows="false">
+	<sim_specs isee:sim_duration="1" isee:simulation_delay="0.000667111" isee:restore_on_start="false" method="Euler" time_units="Days" isee:instantaneous_flows="false">
 		<start>1</start>
-		<stop>1095</stop>
-		<dt reciprocal="true">4</dt>
+		<stop>1500</stop>
+		<dt reciprocal="true">1</dt>
 	</sim_specs>
 	<isee:prefs show_module_prefix="true" live_update_on_drag="true" show_restore_buttons="false" layer="model" interface_scale_ui="true" interface_max_page_width="10000" interface_max_page_height="10000" interface_min_page_width="0" interface_min_page_height="0" saved_runs="5" keep="false" rifp="true"/>
 	<isee:multiplayer_settings include_chat="true" allow_observers="false" advance_time_increment="1" observer_start_page="home_page" enabled="false"/>
@@ -29,10 +29,10 @@
 				<eqn>20</eqn>
 			</aux>
 			<aux name="Infectivity i">
-				<eqn>0.005</eqn>
+				<eqn>0.02</eqn>
 			</aux>
 			<stock name="Infectious Population I">
-				<eqn>2000</eqn>
+				<eqn>120</eqn>
 				<inflow>Infection_Rate_IR</inflow>
 				<outflow>Recovery_Rate_RR</outflow>
 				<outflow>Death_Rate_DR</outflow>
@@ -42,7 +42,7 @@
 				<outflow>Infection_Rate_IR</outflow>
 			</stock>
 			<stock name="Recovered Population R">
-				<eqn>0</eqn>
+				<eqn>15</eqn>
 				<inflow>Recovery_Rate_RR</inflow>
 			</stock>
 			<flow name="Recovery Rate RR">
@@ -61,7 +61,7 @@
 				<non_negative/>
 			</flow>
 			<aux name="Lethality L">
-				<eqn>0.004</eqn>
+				<eqn>0.001</eqn>
 			</aux>
 			<aux name="Intensive Care Units Available">
 				<eqn>30000</eqn>
@@ -73,7 +73,7 @@
 				<eqn>Total_Population_TP-Deaths_D</eqn>
 			</aux>
 			<aux name="Intensive Care Rate">
-				<eqn>0.1</eqn>
+				<eqn>0.002</eqn>
 			</aux>
 			<aux name="Intensive Care Units Needed">
 				<eqn>Infectious_Population_I*Intensive_Care_Rate</eqn>
@@ -124,7 +124,7 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="826" page_height="579" isee:page_cols="2" isee:page_rows="2" isee:scroll_x="190" isee:scroll_y="52.2222" zoom="180" isee:popup_graphs_are_comparative="true" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="826" page_height="579" isee:page_cols="2" isee:page_rows="2" isee:scroll_x="298.333" zoom="180" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="#095572" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -220,7 +220,7 @@
 					<from>Average_Duration_d</from>
 					<to>Recovery_Rate_RR</to>
 				</connector>
-				<stacked_container uid="9" x="228.556" y="99.5556" width="469.555" height="274.445" minimized="true">
+				<stacked_container uid="9" x="314.667" y="172.445" width="469.555" height="274.445">
 					<table width="469.555" height="274.445">
 						<item type="time"/>
 						<item>
@@ -255,11 +255,11 @@
 						</item>
 					</table>
 				</stacked_container>
-				<stock x="466.389" y="342.778" width="45" height="35" name="Deaths D"/>
-				<flow label_side="right" label_angle="315" x="488.889" y="266.528" name="Death Rate DR">
+				<stock x="466.389" y="344.445" width="45" height="35" name="Deaths D"/>
+				<flow label_side="right" label_angle="315" x="488.889" y="267.362" name="Death Rate DR">
 					<pts>
 						<pt x="488.889" y="202.278"/>
-						<pt x="488.889" y="342.778"/>
+						<pt x="488.889" y="344.445"/>
 					</pts>
 				</flow>
 				<connector uid="10" angle="235.76">
@@ -267,7 +267,7 @@
 					<to>Death_Rate_DR</to>
 				</connector>
 				<aux label_side="bottom" x="553.055" y="300.667" width="18" height="18" name="Lethality L"/>
-				<connector uid="11" angle="149.476">
+				<connector uid="11" angle="149.963">
 					<from>Lethality_L</from>
 					<to>Death_Rate_DR</to>
 				</connector>
@@ -308,8 +308,18 @@
 					<from>Intensive_Care_Rate</from>
 					<to>Intensive_Care_Units_Needed</to>
 				</connector>
+				<stacked_container uid="20" x="342.778" y="422.778" width="350" height="250" minimized="true">
+					<graph width="350" height="250" type="time_series" isee:points_only="false" show_grid="false" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" right_axis_multi_scale="false" right_axis_auto_scale="true">
+						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
+							<entity name="Infectious_Population_I"/>
+						</plot>
+					</graph>
+				</stacked_container>
 			</view>
 		</views>
 	</model>
+	<isee:controls>
+		<isee:control priority="interactive" name="Infectivity_i" value="0.0183951955116807"/>
+	</isee:controls>
 </xmile>
 
