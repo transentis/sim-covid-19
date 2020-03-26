@@ -1,9 +1,0 @@
-{
-    "smRealistic":{
-        "source":"simulation_models/realistic_epidemic_model.stmx",
-        "model":"simulation_models/realistic_epidemic_model",
-         "scenarios":{
-            "base":{}
-         }
-    }
-}

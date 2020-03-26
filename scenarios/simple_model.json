@@ -1,9 +1,0 @@
-{
-    "smSimple":{
-        "source":"simulation_models/simple_epidemic_model.stmx",
-        "model":"simulation_models/simple_epidemic_model",
-         "scenarios":{
-            "base":{}
-         }
-    }
-}
