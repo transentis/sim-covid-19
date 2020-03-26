@@ -59,7 +59,7 @@ def update_graphs(contact_rate):
                  "smAdvancedRealistic_interactiveScenario_recoveredPopulationR":"Recovered Population",
                  "smAdvancedRealistic_interactiveScenario_deathsD":"Deaths"     
             },
-            visualize_to_period=300
+            visualize_to_period=600
         )
         # show the plot
         plt.show(plot1)
@@ -82,7 +82,7 @@ def update_graphs(contact_rate):
                 "smAdvancedRealistic_interactiveScenario_intensiveCareUnitsNeeded": "Intensive Care Needed",
                 "smAdvancedRealistic_interactiveScenario_intensiveCareUnitsAvailable": "Intensive Care Available"  
             },
-            visualize_to_period=300
+            visualize_to_period=600
         )
         plt.show(plot2)
         plt.ion()

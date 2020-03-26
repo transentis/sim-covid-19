@@ -78,9 +78,6 @@
 			<aux name="Intensive Care Units Needed">
 				<eqn>Infectious_Population_I*Intensive_Care_Rate</eqn>
 			</aux>
-			<aux name="Growth Rate">
-				<eqn>TREND(Infectious_Population_I, 7)</eqn>
-			</aux>
 		</variables>
 		<views>
 			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
@@ -318,17 +315,9 @@
 						</plot>
 					</graph>
 				</stacked_container>
-				<aux x="451.667" y="40.5555" name="Growth Rate"/>
-				<connector uid="21" angle="90">
-					<from>Infectious_Population_I</from>
-					<to>Growth_Rate</to>
-				</connector>
-				<stacked_container uid="22" x="368.833" y="25.3333" width="371.111" height="289.667" minimized="true">
+				<stacked_container uid="21" x="368.833" y="25.3333" width="371.111" height="289.667" minimized="true">
 					<table width="371.111" height="289.667">
 						<item type="time"/>
-						<item>
-							<entity name="Growth_Rate"/>
-						</item>
 						<item>
 							<entity name="Infectious_Population_I"/>
 						</item>
