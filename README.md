@@ -1,6 +1,6 @@
 # COVID-19 Simulation
 
-This repository contains a simulation of the COVID-19 pandemic based on the SIR model. The simulation is currently roughly calibrated to the situation in Germany and illustrates some scenarios regarding social distancing with the objective of keeping the strain on the health care system at a tolerable level.
+This repository contains a simulation of the COVID-19 pandemic based on the SIR model. The simulation is currently roughly calibrated to the situation in Germany and illustrates some scenarios regarding social distancing, with the objective of keeping the strain on the health care system at a tolerable level.
 
 You can play with the simulation and the scenarios using Jupyter notebooks, the simulation itself is built using System Dynamics as implemented in the BPTK-Py simulation framework.
 
