@@ -2,7 +2,7 @@
 <xmile version="1.0" xmlns="http://docs.oasis-open.org/xmile/ns/XMILE/v1.0" xmlns:isee="http://iseesystems.com/XMILE">
 	<header>
 		<smile version="1.0" namespace="std, isee" uses_submodels=""/>
-		<name>cld_advanced_realistic_epidemic</name>
+		<name>cld_sir_model</name>
 		<uuid>460588a1-5375-47dd-bd69-88a0f267ae32</uuid>
 		<vendor>isee systems, inc.</vendor>
 		<product version="1.9.4" isee:build_number="1992" isee:saved_by_v1="true" lang="en">Stella Architect</product>
@@ -78,20 +78,20 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="826" page_height="579" isee:page_cols="2" isee:scroll_x="122.857" isee:scroll_y="54.2857" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
+			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="826" page_height="579" isee:page_cols="2" isee:scroll_x="122.143" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -187,18 +187,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -230,18 +230,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -273,18 +273,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -316,18 +316,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -359,18 +359,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -402,18 +402,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -445,18 +445,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -488,18 +488,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -531,18 +531,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -574,18 +574,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="826" page_height="579" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
@@ -617,18 +617,18 @@
 		<views>
 			<view isee:show_pages="false" background="white" isee:converter_size="large" isee:name_only_modules="true" page_width="768" page_height="576" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
-					<stock color="#095572" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<stock color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
 					</stock>
-					<flow color="#095572" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<isee:placeholder color="#228B22" background="white" font_color="blue" font_size="18pt" label_side="bottom"/>
-					<module color="blue" background="white" font_color="blue" font_size="18pt" label_side="top">
+					<flow color="#095572" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<isee:placeholder color="#228B22" background="white" font_color="#575457" font_size="18pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="#575457" font_size="18pt" label_side="top">
 						<shape type="name_only"/>
 					</module>
-					<aux color="blue" background="white" font_color="blue" font_size="18pt" label_side="bottom">
+					<aux color="blue" background="white" font_color="#575457" font_size="18pt" label_side="bottom">
 						<shape type="circle" radius="24"/>
 					</aux>
-					<group color="red" background="white" font_color="blue" font_size="18pt"/>
+					<group color="red" background="white" font_color="#575457" font_size="18pt"/>
 					<connector color="#AE9A67" background="white" font_color="#AE9A67" font_size="9pt" isee:thickness="1"/>
 					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
 					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
