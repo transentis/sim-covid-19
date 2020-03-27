@@ -1,7 +1,7 @@
 {
-    "smAdvancedRealistic":{
-        "source":"simulation_models/advanced_realistic_epidemic_model.stmx",
-        "model":"simulation_models/advanced_realistic_epidemic_model",
+    "smSir":{
+        "source":"simulation_models/sir_model.stmx",
+        "model":"simulation_models/sir_model",
          "scenarios":{
             "base":{},
             "contactLargeGroups":{},

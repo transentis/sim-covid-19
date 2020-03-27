@@ -25,14 +25,14 @@ def event_handler_contact_rate(change):
     update_graphs(change.new)
     
 def update_graphs(contact_rate):
-    scenario= bptk.get_scenario("smAdvancedRealistic","interactiveScenario")
+    scenario= bptk.get_scenario("smSir","interactiveScenario")
 
     scenario.constants["contactRateC"]=contact_rate
    
 
     wdg_contact_rate.layout.visibility = 'visible'
     
-    bptk.reset_simulation_model(scenario_manager="smAdvancedRealistic", scenario="interactiveScenario")
+    bptk.reset_simulation_model(scenario_manager="smSir", scenario="interactiveScenario")
 
     out1.clear_output(wait=True)
     out2.clear_output(wait=True)
@@ -44,7 +44,7 @@ def update_graphs(contact_rate):
         
         # create the plot, but don't show it yet
         plot1=bptk.plot_scenarios(
-            scenario_managers=["smAdvancedRealistic"],
+            scenario_managers=["smSir"],
             scenarios=["interactiveScenario"],
             title="Recovered Population vs. Deaths",
             x_label="Days",
@@ -55,9 +55,9 @@ def update_graphs(contact_rate):
                 "deathsD"
             ],
              series_names={
-                 "smAdvancedRealistic_interactiveScenario_infectiousPopulationI":"Infectious Population",
-                 "smAdvancedRealistic_interactiveScenario_recoveredPopulationR":"Recovered Population",
-                 "smAdvancedRealistic_interactiveScenario_deathsD":"Deaths"     
+                 "smSir_interactiveScenario_infectiousPopulationI":"Infectious Population",
+                 "smSir_interactiveScenario_recoveredPopulationR":"Recovered Population",
+                 "smSir_interactiveScenario_deathsD":"Deaths"     
             },
             visualize_to_period=600
         )
@@ -69,7 +69,7 @@ def update_graphs(contact_rate):
     with out2:
         plt.ioff()
         plot2=bptk.plot_scenarios(
-            scenario_managers=["smAdvancedRealistic"],
+            scenario_managers=["smSir"],
             scenarios=["interactiveScenario"],
             title="Available Intensive Care vs. Needed Intensive Care",
             x_label="Days",
@@ -79,8 +79,8 @@ def update_graphs(contact_rate):
                 "intensiveCareUnitsAvailable"
             ],
             series_names={
-                "smAdvancedRealistic_interactiveScenario_intensiveCareUnitsNeeded": "Intensive Care Needed",
-                "smAdvancedRealistic_interactiveScenario_intensiveCareUnitsAvailable": "Intensive Care Available"  
+                "smSir_interactiveScenario_intensiveCareUnitsNeeded": "Intensive Care Needed",
+                "smSir_interactiveScenario_intensiveCareUnitsAvailable": "Intensive Care Available"  
             },
             visualize_to_period=600
         )
