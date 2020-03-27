@@ -30,9 +30,10 @@ Then follow these steps:
 3. Install a virtual environment in that directory: ```python3 -m venv venv```
 4. Activate the virtual environment: ```source venv/bin/activate``` (MacOS/Linux) or ``venv\scripts\activate.bat``` (Windows)
 5. Install the necessary python modules: ```pip install -r requirements.txt```
-6. Start JupyerLab: ```jupyter lab```
-7. Your browser will open showing JupyterLab and your chosen directory
-8. Open the notebook ```sim-covid-19.ipynb``` from within JupyterLab and run all cells.
+7. Install Jupyter widgets (for the interactive dashboard): ```jupyter labextension install @jupyter-widgets/jupyterlab-manager```
+8. Start JupyerLab: ```jupyter lab```
+9. Your browser will open showing JupyterLab and your chosen directory
+10. Open the notebook ```sim-covid-19.ipynb``` from within JupyterLab and run all cells.
 
 ## Contents
 
@@ -40,8 +41,11 @@ Currently the repository contains two versions of the SIR model, one built using
 
 We have included a notebook for each - the notebooks produce identical results.
 
-* [COVID-19 Simulation](sim-covid-19.ipynb)
-* [COVID-19 Simulation (XMILE)](sim-covid-19-xmile.ipynb)
+* [COVID-19 Simulation](sim-covid-19.ipynb) The notebook contains the complete simulation written in Python.
+* [COVID-19 Simulation (XMILE)](sim-covid-19-xmile.ipynb) The simulation was created in XMILE using Stella Architect, but the notebook is fully functional even if you don't have a Stella Architect license. The Stella Architect file is in `simulation_models/sir_model.stmx`
 
-You can run both notebooks even if you don't have a Stella Architect license, but you will not be able to change the XMILE model `sir_model.stmx`, which can be found in the `simulation_models` directory.
-    
+## Get In Touch
+
+Please let us know if you need help getting started, if you find a bug or are missing important functionality.
+
+You can best reach us per e-mail at [support@transentis.com](mailto:support@transentis.com)
