@@ -1,5 +1,5 @@
 {
-    "smSir":{
+    "smSirXMILE":{
         "source":"simulation_models/sir_model.stmx",
         "model":"simulation_models/sir_model",
          "scenarios":{

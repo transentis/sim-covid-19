@@ -27,7 +27,7 @@ def event_handler_contact_rate(change):
 def update_graphs(contact_rate):
     scenario= bptk.get_scenario("smSir","interactiveScenario")
 
-    scenario.constants["contactRateC"]=contact_rate
+    scenario.constants["c"]=contact_rate
    
 
     wdg_contact_rate.layout.visibility = 'visible'
@@ -50,14 +50,14 @@ def update_graphs(contact_rate):
             x_label="Days",
             y_label="Persons",
             equations=[
-               "infectiousPopulationI",
-                "recoveredPopulationR",
-                "deathsD"
+               "I",
+                "R",
+                "D"
             ],
              series_names={
-                 "smSir_interactiveScenario_infectiousPopulationI":"Infectious Population",
-                 "smSir_interactiveScenario_recoveredPopulationR":"Recovered Population",
-                 "smSir_interactiveScenario_deathsD":"Deaths"     
+                 "smSir_interactiveScenario_I":"Infectious Population",
+                 "smSir_interactiveScenario_R":"Recovered Population",
+                 "smSir_interactiveScenario_D":"Deaths"     
             },
             visualize_to_period=600
         )
@@ -75,12 +75,12 @@ def update_graphs(contact_rate):
             x_label="Days",
             y_label="Intensive Care Units",
             equations=[
-                "intensiveCareUnitsNeeded",
-                "intensiveCareUnitsAvailable"
+                "needed",
+                "available"
             ],
             series_names={
-                "smSir_interactiveScenario_intensiveCareUnitsNeeded": "Intensive Care Needed",
-                "smSir_interactiveScenario_intensiveCareUnitsAvailable": "Intensive Care Available"  
+                "smSir_interactiveScenario_needed": "Intensive Care Needed",
+                "smSir_interactiveScenario_available": "Intensive Care Available"  
             },
             visualize_to_period=600
         )
