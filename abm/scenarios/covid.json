@@ -4,7 +4,7 @@
     "name": "COVID-19",
     "model": "src.model.simulation_model.SimulationModel",
     "scenarios": {
-      "scenario80": {
+      "base": {
         "runspecs": {
           "starttime": 0,
           "stoptime": 120,
@@ -22,12 +22,16 @@
           "size_Y": {
             "type": "Integer",
             "value": 20
-          }
+          },
+            "infectivity":{
+                "type": "Float",
+                "value": 0.02
+            }
         },
         "agents": [
           {
             "name": "person",
-            "count": 5000,
+            "count": 2000,
             "properties": {
               "infected": {
                 "type": "Integer",
