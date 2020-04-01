@@ -1,0 +1,42 @@
+{
+  "Covid19": {
+    "type": "abm",
+    "name": "COVID-19",
+    "model": "src.model.simulation_model.SimulationModel",
+    "scenarios": {
+      "scenario80": {
+        "runspecs": {
+          "starttime": 0,
+          "stoptime": 1200,
+          "dt": 1
+        },
+        "properties": {
+          "infected": {
+            "type": "Integer",
+            "value": 0
+          },
+          "size_X": {
+            "type": "Integer",
+            "value": 20
+          },
+          "size_Y": {
+            "type": "Integer",
+            "value": 20
+          }
+        },
+        "agents": [
+          {
+            "name": "person",
+            "count": 5,
+            "properties": {
+              "infected": {
+                "type": "Integer",
+                "value": 0
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
