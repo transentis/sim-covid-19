@@ -7,7 +7,7 @@
       "scenario80": {
         "runspecs": {
           "starttime": 0,
-          "stoptime": 1200,
+          "stoptime": 120,
           "dt": 1
         },
         "properties": {
@@ -27,7 +27,7 @@
         "agents": [
           {
             "name": "person",
-            "count": 5,
+            "count": 5000,
             "properties": {
               "infected": {
                 "type": "Integer",

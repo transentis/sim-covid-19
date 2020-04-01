@@ -6,5 +6,5 @@ class SimulationModel(Model):
         self.grid = (20,20)
         self.register_agent_factory(
             "person",
-            lambda agent_id, model, properties: Person(agent_id, model, properties)
+            lambda agent_id, model, properties: Person(agent_id, model, properties,agent_type="person")
         )
