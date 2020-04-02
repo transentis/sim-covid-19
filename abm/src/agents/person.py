@@ -5,12 +5,12 @@ import random
 
 class Person(Agent):
     STATES = ["HEALTHY", "INFECTED_LIGHT","INFECTED_HARD"]
-    #MOVING_LIST = [[0, 0], [0, -1], [0, 1], [-1, 0], [1, 0], [1, -1], [1, 1], [-1, 1], [-1, -1]]
+    # MOVING_LIST = [[0, 0], [0, -1], [0, 1], [-1, 0], [1, 0], [1, -1], [1, 1], [-1, 1], [-1, -1]]
 
     def initialize(self):
-        self.state = np.random.choice(self.STATES, p=[0.9, 0.08,0.02])
-        self.register_event_handler(["HEALTHY","INFECTED_LIGHT","INFECTED_HARD"], "infection_hard", self.handle_infection_hard_event)
-        self.register_event_handler(["HEALTHY", "INFECTED_LIGHT", "INFECTED_HARD"], "infection_light",self.handle_infection_light_event)
+        self.state = np.random.choice(self.STATES, p=[0.8, 0.16, 0.04])
+        self.register_event_handler(["HEALTHY", "INFECTED_LIGHT", "INFECTED_HARD"], "infection_hard", self.handle_infection_hard_event)
+        self.register_event_handler(["HEALTHY", "INFECTED_LIGHT", "INFECTED_HARD"], "infection_light", self.handle_infection_light_event)
 
         # found = False
         #
@@ -27,33 +27,23 @@ class Person(Agent):
         #         found = True
         # self.position = position
 
-
-    def handle_infection_hard_event(self,event):
-        if self.state == "INFECTED_LIGHT" or self.state == "INFECTED_HARD":
-            pass
-        elif self.state == "HEALTHY":
+    def handle_infection_hard_event(self, event):
+        if self.state == "HEALTHY":
             self.state = "INFECTED_HARD"
-    def handle_infection_light_event(self,event):
-        if self.state == "INFECTED_LIGHT" or self.state == "INFECTED_HARD":
-            pass
-        elif self.state == "HEALTHY":
+
+    def handle_infection_light_event(self, event):
+        if self.state == "HEALTHY":
             self.state = "INFECTED_LIGHT"
 
-
-    def act(self,time,round_no, step_no):
-        if self.state == "HEALTHY":
-            pass
-            #print(self.position)
-            #self.move()
-            #print(self.position)
-            #neighbors = self.find_neighbors()
-            #self.check_infected(neighbors)
-        elif self.state == "INFECTED_LIGHT" or self.state == "INFECTED_HARD":
+    def act(self, time, round_no, step_no):
+        if self.state == "INFECTED_LIGHT":
+                # or self.state == "INFECTED_HARD":
             infected_contacts = 0
-            for i in range(0,20):
-                if np.random.choice(["HEALTHY","INFECTED"], p=[1-self.model.infectivity, self.model.infectivity])=="INFECTED":
-                    infected_contacts+=1
-            self.infected= infected_contacts
+            for i in range(0,self.model.contact_rate):
+                if np.random.choice(["HEALTHY", "INFECTED"], p=[1-self.model.infectivity, self.model.infectivity]) \
+                        == "INFECTED":
+                    infected_contacts += 1
+            self.infected = infected_contacts
             infected_light = round(0.8*infected_contacts)
             infected_hard = round(0.2*infected_contacts)
             event_factory_hard = lambda agent_id: Event("infection_hard", self.id, agent_id, data=None)

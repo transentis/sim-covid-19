@@ -7,7 +7,7 @@
       "base": {
         "runspecs": {
           "starttime": 0,
-          "stoptime": 120,
+          "stoptime": 360,
           "dt": 1
         },
         "properties": {
@@ -21,17 +21,21 @@
           },
           "size_Y": {
             "type": "Integer",
-            "value": 20
+            "value": 50
           },
             "infectivity":{
                 "type": "Float",
-                "value": 0.02
+                "value": 0.007
+            },
+            "contact_rate":{
+                "type": "Integer",
+                "value": 20
             }
         },
         "agents": [
           {
             "name": "person",
-            "count": 2000,
+            "count": 8000,
             "properties": {
               "infected": {
                 "type": "Integer",
