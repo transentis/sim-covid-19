@@ -2,11 +2,10 @@
 import matplotlib.pyplot as plt
 from ipywidgets import interact
 import ipywidgets as widgets
-    
+from IPython.display import HTML
 out1 = widgets.Output()
 out2 = widgets.Output()
 out3 = widgets.Output()
-out4 = widgets.Output()
 
 wdg_style_contact_rate = {'description_width': 'initial'}
 wdg_contact_rate=widgets.FloatSlider(
@@ -36,6 +35,7 @@ def update_graphs(contact_rate):
 
     out1.clear_output(wait=True)
     out2.clear_output(wait=True)
+    out3.clear_output(wait=True)
     
     with out1:
         # turn of pyplot's interactive mode to ensure the plot is not created directly
@@ -86,13 +86,17 @@ def update_graphs(contact_rate):
         )
         plt.show(plot2)
         plt.ion()
+    with out3:
+        display(HTML("<p>The implementation here is roughly calibrated to the current situation in Germany (as of 27.3.2020). It illustrates the effects of social distancing in achieving the objective of keeping the strain on the health care system as small as possible.</p><ul><li>Contact Rate: 20 persons. Defines how many people a person encounters per day in average.</li><li>Infectivity: 2%. Defines the probability that a person becomes infected after contact with an infectious person.</li><li>Intensive Care Needed: 0.2%. Measures the number of infected people who need intensive care.</li><li>Intensive Care Available: 30,000 units. The number of intensive care units available.</li></ul>"))
+        
               
 
 wdg_contact_rate.observe(event_handler_contact_rate, names="value")
 
-tabbed_graphs = widgets.Tab(children = [out1, out2])
+tabbed_graphs = widgets.Tab(children = [out1, out2, out3])
 tabbed_graphs.set_title(0, 'Population')
 tabbed_graphs.set_title(1, 'Intensive Care')
+tabbed_graphs.set_title(2, 'Assumptions')
 
 display(tabbed_graphs)
 
