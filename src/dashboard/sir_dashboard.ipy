@@ -6,36 +6,70 @@ from IPython.display import HTML
 out1 = widgets.Output()
 out2 = widgets.Output()
 out3 = widgets.Output()
+out4 = widgets.Output()
 
-wdg_style_contact_rate = {'description_width': 'initial'}
-wdg_contact_rate=widgets.FloatSlider(
-        value=20,
+wdg_style_distancing_contact_rate = {'description_width': 'initial'}
+wdg_distancing_contact_rate=widgets.FloatSlider(
+        value=2,
         min=1,
-        max=30,
+        max=20,
         step=1,
         continuous_update=False,
-        description='Contact Rate',
-        style=wdg_style_contact_rate
+        description='Distancing Contact Rate',
+        style=wdg_style_distancing_contact_rate
     )
-wdg_contact_rate.layout.width='400px'
+wdg_distancing_contact_rate.layout.width='350px'
 
 
-def event_handler_contact_rate(change):
-    update_graphs(change.new)
+wdg_style_distancing_begin= {'description_width': 'initial'}
+wdg_distancing_begin=widgets.FloatSlider(
+        value=20,
+        min=1,
+        max=200,
+        step=1,
+        continuous_update=False,
+        description='Distancing Begin',
+        style=wdg_style_distancing_begin
+    )
+wdg_distancing_begin.layout.width='350px'
+
+wdg_style_distancing_duration= {'description_width': 'initial'}
+wdg_distancing_duration=widgets.FloatSlider(
+        value=100,
+        min=20,
+        max=1300,
+        step=1,
+        continuous_update=False,
+        description='Distancing Duration',
+        style=wdg_style_distancing_duration
+    )
+wdg_distancing_duration.layout.width='350px'
+
+
+def event_handler_distancing_contact_rate(change):
+    update_graphs(change.new, wdg_distancing_begin.value,wdg_distancing_duration.value)
     
-def update_graphs(contact_rate):
+def event_handler_distancing_begin(change):
+    update_graphs(wdg_distancing_contact_rate.value,change.new,wdg_distancing_duration.value)
+    
+def event_handler_distancing_duration(change):
+    update_graphs(wdg_distancing_contact_rate.value,wdg_distancing_begin.value,change.new)
+   
+    
+def update_graphs(distancing_contact_rate,distancing_begin, distancing_duration):
     scenario= bptk.get_scenario("smSir","interactiveScenario")
 
-    scenario.constants["c"]=contact_rate
-   
-
-    wdg_contact_rate.layout.visibility = 'visible'
+    scenario.constants["distancing_contact_rate"]=distancing_contact_rate
+    scenario.constants["distancing_begin"]=distancing_begin
+    scenario.constants["distancing_duration"]=distancing_duration
+    scenario.constants["flexible_on"]=0
     
     bptk.reset_simulation_model(scenario_manager="smSir", scenario="interactiveScenario")
 
     out1.clear_output(wait=True)
     out2.clear_output(wait=True)
     out3.clear_output(wait=True)
+    out4.clear_output(wait=True)
     
     with out1:
         # turn of pyplot's interactive mode to ensure the plot is not created directly
@@ -58,8 +92,7 @@ def update_graphs(contact_rate):
                  "smSir_interactiveScenario_I":"Infectious Population",
                  "smSir_interactiveScenario_R":"Recovered Population",
                  "smSir_interactiveScenario_D":"Deaths"     
-            },
-            visualize_to_period=600
+            }
         )
         # show the plot
         plt.show(plot1)
@@ -81,30 +114,49 @@ def update_graphs(contact_rate):
             series_names={
                 "smSir_interactiveScenario_needed": "Intensive Care Needed",
                 "smSir_interactiveScenario_available": "Intensive Care Available"  
-            },
-            visualize_to_period=600
+            }
         )
         plt.show(plot2)
         plt.ion()
     with out3:
+        plt.ioff()
+        plot2=bptk.plot_scenarios(
+            scenario_managers=["smSir"],
+            scenarios=["interactiveScenario"],
+            title="Contact Rate",
+            x_label="Days",
+            y_label="Average People Contacted",
+            equations=[
+                "contact_rate"
+            ],
+            series_names={
+                "smSir_interactiveScenario_contact_rate": "Contact Rate" 
+            }
+        )
+        plt.show(plot2)
+        plt.ion()
+    with out4:
         display(HTML("<p>The implementation here is roughly calibrated to the current situation in Germany (as of 27.3.2020). It illustrates the effects of social distancing in achieving the objective of keeping the strain on the health care system as small as possible.</p><ul><li>Contact Rate: 20 persons. Defines how many people a person encounters per day in average.</li><li>Infectivity: 2%. Defines the probability that a person becomes infected after contact with an infectious person.</li><li>Intensive Care Needed: 0.2%. Measures the number of infected people who need intensive care.</li><li>Intensive Care Available: 30,000 units. The number of intensive care units available.</li></ul>"))
         
               
 
-wdg_contact_rate.observe(event_handler_contact_rate, names="value")
+wdg_distancing_contact_rate.observe(event_handler_distancing_contact_rate, names="value")
+wdg_distancing_begin.observe(event_handler_distancing_begin, names="value")
+wdg_distancing_duration.observe(event_handler_distancing_duration, names="value")
 
-tabbed_graphs = widgets.Tab(children = [out1, out2, out3])
+tabbed_graphs = widgets.Tab(children = [out1, out2, out3, out4])
 tabbed_graphs.set_title(0, 'Population')
 tabbed_graphs.set_title(1, 'Intensive Care')
-tabbed_graphs.set_title(2, 'Assumptions')
+tabbed_graphs.set_title(2, 'Contact Rate')
+tabbed_graphs.set_title(3, 'Assumptions')
 
 display(tabbed_graphs)
 
 
-control_panel = widgets.HBox([wdg_contact_rate])
+control_panel = widgets.GridBox([wdg_distancing_contact_rate,wdg_distancing_begin,wdg_distancing_duration],layout=widgets.Layout(grid_template_columns="repeat(2, 400px)"))
 display(control_panel)
 
 
-update_graphs(wdg_contact_rate.value)
+update_graphs(wdg_distancing_contact_rate.value,wdg_distancing_begin.value,wdg_distancing_duration.value)
 
 
