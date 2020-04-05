@@ -1,3 +1,4 @@
+*.zip
 /images_workshop
 .DS_Store
 # Byte-compiled / optimized / DLL files
@@ -145,3 +146,8 @@ media
 static
 *.docx
 *.isdb
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

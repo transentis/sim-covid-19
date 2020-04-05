@@ -4,6 +4,8 @@ This repository contains a simulation of the COVID-19 pandemic based on the SIR 
 
 You can play with the simulation and the scenarios using Jupyter notebooks, the simulation itself is built using System Dynamics as implemented in the BPTK-Py simulation framework.
 
+The simulation includes a dashboard that can be run interactively in Jupyter or as a standalone application using [Voila](https://voila.readthedocs.io). You can see the display in action on [covid-sim.com](https://covid-sim.com)
+
 You can read more about BPTK-Py in the [BPTK-Py online documentation](http://bptk.transentis-labs.com).
 
 ## Installation
@@ -34,6 +36,37 @@ Then follow these steps:
 8. Start JupyerLab: ```jupyter lab```
 9. Your browser will open showing JupyterLab and your chosen directory
 10. Open the notebook ```sim-covid-19.ipynb``` from within JupyterLab and run all cells.
+
+## Deployment via Elastic Beanstalk
+
+Elastic Beanstalk is a great AWS tool to deploy applications with a single click, including auto-scaling groups and fault tolerance. The simulation can be deployed as a web app via AWS Beanstalk. We use [Voila](https://voila.readthedocs.io/en/stable/) to deploy the simulation dashboard.
+
+
+The script [deploy_ebs](deploy_ebs.sh) creates the Beanstalk app, uploads it to AWS and creates the environment. __Beware__ that this __will__ incur cost on your AWS! We asume that you set up and configured ``awscli`` and ``ebcli``. Please find information how to set up those here:
+
+- ``awscli``: [https://docs.aws.amazon.com/de_de/cli/latest/userguide/cli-chap-install.html](https://docs.aws.amazon.com/de_de/cli/latest/userguide/cli-chap-install.html)
+- ``ebcli``: [https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html)
+
+__Please note__ that the [Dockerfile](Dockerfile) contains an ``EXPOSE`` command. Beanstalk uses this information to learn which port to map to the outside world. However, as of April 1st, 2020 the automatic upload via ``eb`` does strip out the ``EXPOSE``, resulting in a deployment error complaining that the ``EXPOSE`` is missing. If that happens simply zip this repo (exclude .git, please) and upload it manually via the ``upgrade and deploy`` in the AWS beanstalk browser console for your new environment: [https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home?region=eu-central-1#/applications](https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home?region=eu-central-1#/applications) 
+
+
+The deploy script only uses two commands:
+
+```bash
+eb init -p docker --region eu-central-1
+eb create covid-sim-19
+```
+
+### Local testing
+
+For __local testing__, run:
+
+```bash
+eb init -p docker --region eu-central-1
+eb local run --port 8001
+```
+
+This will start the application on your local machine on port 8001. Access via [http://localhost:8001](http://localhost:8001)
 
 ## Contents
 
