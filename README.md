@@ -4,7 +4,7 @@ This repository contains a simulation of the COVID-19 pandemic based on the SIR 
 
 You can play with the simulation and the scenarios using Jupyter notebooks, the simulation itself is built using System Dynamics as implemented in the BPTK-Py simulation framework.
 
-The simulation includes a dashboard that can be run interactively in Jupyter or as a standalong application using [Voila](https://voila.readthedocs.io). You can see the display in action on [covid-sim.com](https://covid-sim.com)
+The simulation includes a dashboard that can be run interactively in Jupyter or as a standalone application using [Voila](https://voila.readthedocs.io). You can see the display in action on [covid-sim.com](https://covid-sim.com)
 
 You can read more about BPTK-Py in the [BPTK-Py online documentation](http://bptk.transentis-labs.com).
 
