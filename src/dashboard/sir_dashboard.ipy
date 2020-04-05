@@ -8,10 +8,32 @@ out2 = widgets.Output()
 out3 = widgets.Output()
 out4 = widgets.Output()
 
+wdg_style_distancing_on = {'description_width': 'initial'}
+wdg_distancing_on = widgets.Checkbox(
+        value=False,
+        continuous_update=False,
+        disabled=False,
+        description='Distancing On',
+        style=wdg_style_distancing_on
+    )
+wdg_distancing_on.layout.width='350px'
+
+wdg_style_normal_contact_rate = {'description_width': 'initial'}
+wdg_normal_contact_rate=widgets.FloatSlider(
+        value=15,
+        min=0,
+        max=40,
+        step=1,
+        continuous_update=False,
+        description='Normal Contact Rate',
+        style=wdg_style_normal_contact_rate
+    )
+wdg_normal_contact_rate.layout.width='350px'
+
 wdg_style_distancing_contact_rate = {'description_width': 'initial'}
 wdg_distancing_contact_rate=widgets.FloatSlider(
         value=2,
-        min=1,
+        min=0,
         max=20,
         step=1,
         continuous_update=False,
@@ -24,7 +46,7 @@ wdg_distancing_contact_rate.layout.width='350px'
 wdg_style_distancing_begin= {'description_width': 'initial'}
 wdg_distancing_begin=widgets.FloatSlider(
         value=20,
-        min=1,
+        min=0,
         max=200,
         step=1,
         continuous_update=False,
@@ -36,7 +58,7 @@ wdg_distancing_begin.layout.width='350px'
 wdg_style_distancing_duration= {'description_width': 'initial'}
 wdg_distancing_duration=widgets.FloatSlider(
         value=100,
-        min=20,
+        min=0,
         max=1300,
         step=1,
         continuous_update=False,
@@ -45,26 +67,37 @@ wdg_distancing_duration=widgets.FloatSlider(
     )
 wdg_distancing_duration.layout.width='350px'
 
-
+def event_handler_distancing_on(change):
+    update_graphs(change.new, wdg_normal_contact_rate.value, wdg_distancing_contact_rate.value, wdg_distancing_begin.value, wdg_distancing_duration.value)
+    
+def event_handler_normal_contact_rate(change):
+    update_graphs(wdg_distancing_on.value, change.new, wdg_distancing_contact_rate.value, wdg_distancing_begin.value,wdg_distancing_duration.value)
+    
 def event_handler_distancing_contact_rate(change):
-    update_graphs(change.new, wdg_distancing_begin.value,wdg_distancing_duration.value)
+    update_graphs(wdg_distancing_on.value, wdg_normal_contact_rate.value, change.new, wdg_distancing_begin.value, wdg_distancing_duration.value)
     
 def event_handler_distancing_begin(change):
-    update_graphs(wdg_distancing_contact_rate.value,change.new,wdg_distancing_duration.value)
+    update_graphs(wdg_distancing_on.value, wdg_normal_contact_rate.value,wdg_distancing_contact_rate.value,change.new,wdg_distancing_duration.value)
     
 def event_handler_distancing_duration(change):
-    update_graphs(wdg_distancing_contact_rate.value,wdg_distancing_begin.value,change.new)
+    update_graphs(wdg_distancing_on.value, wdg_normal_contact_rate.value, wdg_distancing_contact_rate.value,wdg_distancing_begin.value,change.new)
    
     
-def update_graphs(distancing_contact_rate,distancing_begin, distancing_duration):
-    scenario= bptk.get_scenario("smSir","interactiveScenario")
+def update_graphs(distancing_on, normal_contact_rate, distancing_contact_rate,distancing_begin, distancing_duration):
+    scenario= bptk.get_scenario("smSir","dashboard")
 
+    scenario.constants["distancing_on"]=1.0 if distancing_on else 0.0
+    scenario.constants["normal_contact_rate"]=normal_contact_rate
     scenario.constants["distancing_contact_rate"]=distancing_contact_rate
     scenario.constants["distancing_begin"]=distancing_begin
     scenario.constants["distancing_duration"]=distancing_duration
-    scenario.constants["flexible_on"]=0
+    scenario.constants["dashboard_on"]=1.0
     
-    bptk.reset_simulation_model(scenario_manager="smSir", scenario="interactiveScenario")
+    wdg_distancing_contact_rate.layout.visibility = 'visible' if distancing_on else 'hidden'
+    wdg_distancing_begin.layout.visibility = 'visible' if distancing_on else 'hidden'
+    wdg_distancing_duration.layout.visibility = 'visible' if distancing_on else 'hidden'
+    
+    bptk.reset_simulation_model(scenario_manager="smSir", scenario="dashboard")
 
     out1.clear_output(wait=True)
     out2.clear_output(wait=True)
@@ -79,19 +112,19 @@ def update_graphs(distancing_contact_rate,distancing_begin, distancing_duration)
         # create the plot, but don't show it yet
         plot1=bptk.plot_scenarios(
             scenario_managers=["smSir"],
-            scenarios=["interactiveScenario"],
+            scenarios=["dashboard"],
             title="Recovered Population vs. Deaths",
             x_label="Days",
             y_label="Persons",
             equations=[
-               "I",
-                "R",
-                "D"
+               "infectious",
+                "recovered",
+                "deceased"
             ],
              series_names={
-                 "smSir_interactiveScenario_I":"Infectious Population",
-                 "smSir_interactiveScenario_R":"Recovered Population",
-                 "smSir_interactiveScenario_D":"Deaths"     
+                 "smSir_dashboard_infectious":"Infectious Population",
+                 "smSir_dashboard_recovered":"Recovered Population",
+                 "smSir_dashboard_deceased":"Deceased"     
             }
         )
         # show the plot
@@ -103,17 +136,17 @@ def update_graphs(distancing_contact_rate,distancing_begin, distancing_duration)
         plt.ioff()
         plot2=bptk.plot_scenarios(
             scenario_managers=["smSir"],
-            scenarios=["interactiveScenario"],
+            scenarios=["dashboard"],
             title="Available Intensive Care vs. Needed Intensive Care",
             x_label="Days",
             y_label="Intensive Care Units",
             equations=[
-                "needed",
-                "available"
+                "intensive_needed",
+                "intensive_available"
             ],
             series_names={
-                "smSir_interactiveScenario_needed": "Intensive Care Needed",
-                "smSir_interactiveScenario_available": "Intensive Care Available"  
+                "smSir_dashboard_intensive_needed": "Intensive Care Needed",
+                "smSir_dashboard_intentisve_available": "Intensive Care Available"  
             }
         )
         plt.show(plot2)
@@ -122,7 +155,7 @@ def update_graphs(distancing_contact_rate,distancing_begin, distancing_duration)
         plt.ioff()
         plot2=bptk.plot_scenarios(
             scenario_managers=["smSir"],
-            scenarios=["interactiveScenario"],
+            scenarios=["dashboard"],
             title="Contact Rate",
             x_label="Days",
             y_label="Average People Contacted",
@@ -130,7 +163,7 @@ def update_graphs(distancing_contact_rate,distancing_begin, distancing_duration)
                 "contact_rate"
             ],
             series_names={
-                "smSir_interactiveScenario_contact_rate": "Contact Rate" 
+                "smSir_dashboard_contact_rate": "Contact Rate" 
             }
         )
         plt.show(plot2)
@@ -140,6 +173,8 @@ def update_graphs(distancing_contact_rate,distancing_begin, distancing_duration)
         
               
 
+wdg_distancing_on.observe(event_handler_distancing_on, names="value")
+wdg_normal_contact_rate.observe(event_handler_normal_contact_rate, names="value")
 wdg_distancing_contact_rate.observe(event_handler_distancing_contact_rate, names="value")
 wdg_distancing_begin.observe(event_handler_distancing_begin, names="value")
 wdg_distancing_duration.observe(event_handler_distancing_duration, names="value")
@@ -153,10 +188,10 @@ tabbed_graphs.set_title(3, 'Assumptions')
 display(tabbed_graphs)
 
 
-control_panel = widgets.GridBox([wdg_distancing_contact_rate,wdg_distancing_begin,wdg_distancing_duration],layout=widgets.Layout(grid_template_columns="repeat(2, 400px)"))
+control_panel = widgets.GridBox([wdg_distancing_on,wdg_normal_contact_rate,wdg_distancing_contact_rate,wdg_distancing_begin,wdg_distancing_duration],layout=widgets.Layout(grid_template_columns="repeat(2, 400px)"))
 display(control_panel)
 
 
-update_graphs(wdg_distancing_contact_rate.value,wdg_distancing_begin.value,wdg_distancing_duration.value)
+update_graphs(wdg_distancing_on.value, wdg_normal_contact_rate.value, wdg_distancing_contact_rate.value,wdg_distancing_begin.value,wdg_distancing_duration.value)
 
 
