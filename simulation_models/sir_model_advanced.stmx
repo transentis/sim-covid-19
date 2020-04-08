@@ -89,7 +89,7 @@
 				<gf type="discrete">
 					<xscale min="1" max="1500.00000000001"/>
 					<yscale min="0" max="40"/>
-					<ypts>20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20</ypts>
+					<ypts>20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,2,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20</ypts>
 				</gf>
 			</aux>
 		</variables>
@@ -138,7 +138,7 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="826" page_height="579" isee:page_cols="2" isee:page_rows="2" isee:scroll_x="5.71429" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="826" page_height="579" isee:page_cols="2" isee:page_rows="2" zoom="140" isee:popup_graphs_are_comparative="true" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="#095572" background="white" font_color="#095572" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -182,7 +182,7 @@
 						<pt x="457.5" y="184.778"/>
 					</pts>
 				</flow>
-				<aux x="293.619" y="107.222" width="18" height="18" name="Contact Rate c"/>
+				<aux x="302.619" y="116.222" name="Contact Rate c"/>
 				<aux x="399.056" y="103.889" name="Infectivity i"/>
 				<connector uid="1" polarity="+" isee:polarity_placement="outside" angle="306.67">
 					<from>Contact_Rate_c</from>
@@ -286,7 +286,7 @@
 					<from>Lethality_L</from>
 					<to>Death_Rate_DR</to>
 				</connector>
-				<aux label_side="left" label_angle="225" x="727.5" y="28.2222" width="18" height="18" name="Intensive Care Units Available"/>
+				<aux label_side="left" label_angle="225" x="736.5" y="37.2222" name="Intensive Care Units Available"/>
 				<aux label_side="bottom" x="320.619" y="392.667" name="Total Population TP"/>
 				<aux x="417.056" y="298.736" name="Net Population N"/>
 				<connector uid="12" angle="80.9683">
@@ -313,7 +313,7 @@
 					<from>Recovered_Population_R</from>
 					<to>Total_Population_TP</to>
 				</connector>
-				<aux x="453" y="54.7778" width="18" height="18" name="Intensive Care Rate"/>
+				<aux x="462" y="63.7778" name="Intensive Care Rate"/>
 				<aux x="480" y="116.222" name="Intensive Care Units Needed"/>
 				<connector uid="18" angle="90">
 					<from>Infectious_Population_I</from>
@@ -339,7 +339,7 @@
 					</table>
 				</stacked_container>
 				<aux x="209.611" y="37.2222" name="contact number"/>
-				<aux x="43.4438" y="271.736" width="18" height="18" name="reproduction rate"/>
+				<aux x="52.4438" y="280.736" name="reproduction rate"/>
 				<connector uid="22" angle="146.615">
 					<from>Contact_Rate_c</from>
 					<to>contact_number</to>
