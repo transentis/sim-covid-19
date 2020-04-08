@@ -2,6 +2,8 @@ from BPTK_Py import Agent, Event
 import numpy as np
 import random
 
+from BPTK_Py.widgets import WidgetLoader
+
 
 class Person(Agent):
     STATES = ["HEALTHY", "INFECTED_LIGHT","INFECTED_HARD"]
@@ -50,9 +52,6 @@ class Person(Agent):
             event_factory_light = lambda agent_id: Event("infection_light", self.id, agent_id, data=None)
             self.model.random_events("person", infected_hard, event_factory_hard)
             self.model.random_events("person", infected_light, event_factory_light)
-
-
-
 
     # def move(self):
     #     position_found = 0
