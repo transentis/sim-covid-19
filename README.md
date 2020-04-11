@@ -41,7 +41,8 @@ Then follow these steps:
 1. On the command line, move into a directory where you would like to store the COVID-19 repository. 
 2. Clone this repository: ```git clone https://github.com/transentis/sim-covid-19.git```
 3. Install a virtual environment in that directory: ```python3 -m venv venv```
-4. Activate the virtual environment: ```source venv/bin/activate``` (MacOS/Linux) or ``venv\scripts\activate.bat``` (Windows)
+4. Activate the virtual environment: ```source venv/bin/activate``` (MacOS/Linux) or ``:w
+`venv\scripts\activate.bat``` (Windows)
 5. Install the necessary python modules: ```pip install -r requirements.txt```
 7. Install Jupyter widgets (for the interactive dashboard): ```jupyter labextension install @jupyter-widgets/jupyterlab-manager```
 8. Start JupyerLab: ```jupyter lab```
@@ -53,18 +54,16 @@ Then follow these steps:
 You can run the dashboard locally using [Voila](https://voila.readthedocs.io/en/stable/). Follow  these steps:
 
 1. Install voila:    ```pip install voila```
-2. Run voila: ```voila sim-covid-19_dashboard_only.ipynb```.
+2. Run voila: ```voila sim-covid-19_dashboard_only.ipynb```
 
 This will run the dashboard and open it in your browser.
 
 ## Deploying the dashboard via AWS Elastic Beanstalk
 
-You can deploy the dashboard on AWS Elastic Beanstalk with a single click, including auto-scaling groups and fault tolerance.
+If you have Amazon Web Services at your disposal, you can deploy the dashboard on AWS Elastic Beanstalk with a single click, including auto-scaling groups and fault tolerance.
 
 - ``awscli``: [https://docs.aws.amazon.com/de_de/cli/latest/userguide/cli-chap-install.html](https://docs.aws.amazon.com/de_de/cli/latest/userguide/cli-chap-install.html)
 - ``ebcli``: [https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html)
-
-__Please note__ that the [Dockerfile](Dockerfile) contains an ``EXPOSE`` command. Beanstalk uses this information to learn which port to map to the outside world. However, as of April 1st, 2020 the automatic upload via ``eb`` strips out the ``EXPOSE``, resulting in a deployment error complaining that the ``EXPOSE`` is missing. If that happens simply zip this repo (exclude .git, please) and upload it manually via the ``upgrade and deploy`` in the AWS beanstalk browser console for your new environment: [https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home?region=eu-central-1#/applications](https://eu-central-1.console.aws.amazon.com/elasticbeanstalk/home?region=eu-central-1#/applications) 
 
 
 The deploy script only uses two commands:
@@ -72,6 +71,13 @@ The deploy script only uses two commands:
 ```bash
 eb init -p docker --region eu-central-1
 eb create covid-sim-19
+```
+
+You can update an application using
+
+```bash
+eb init covid-sim-19 --region eu-central-1
+eb deploy
 ```
 
 ### Local testing
