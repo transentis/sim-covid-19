@@ -2,11 +2,9 @@
 
 This repository contains a simulation of the COVID-19 pandemic based on the SIR model. The simulation is currently roughly calibrated to the situation in Germany and illustrates some scenarios regarding social distancing, with the objective of keeping the strain on the health care system at a tolerable level.
 
-You can play with the simulation and the scenarios using Jupyter notebooks, the simulation itself is built using System Dynamics as implemented in the BPTK-Py simulation framework.
+You can play with the simulation and the scenarios using Jupyter notebooks, the simulation itself is built using System Dynamics as implemented in the [BPTK-Py](http://bptk.transentis-labs.com) simulation framework.
 
-The simulation includes a dashboard that can be run interactively in Jupyter or as a standalone application using [Voila](https://voila.readthedocs.io). You can see the display in action on [covid-sim.com](https://covid-sim.com)
-
-You can read more about BPTK-Py in the [BPTK-Py online documentation](http://bptk.transentis-labs.com).
+The simulation includes a dashboard that can be run interactively in Jupyter or as a standalone application using [Voila](https://voila.readthedocs.io). You can see the dashboard in action on [covid-sim.com](https://covid-sim.com)
 
 ## Repository Contents
 
@@ -14,8 +12,8 @@ Currently the repository contains two versions of the SIR model, one built using
 
 We have included a notebook for each:
 
-* [COVID-19 Simulation](sim-covid-19.ipynb) The notebook contains the complete simulation written in Python.
-* [COVID-19 Simulation (XMILE)](sim-covid-19-xmile.ipynb) The simulation was created in XMILE using Stella Architect, but the notebook is fully functional even if you don't have a Stella Architect license. The Stella Architect file is in `simulation_models/sir_model.stmx`
+* [COVID-19 Simulation](sim-covid-19.ipynb) The notebook contains the complete simulation written in Python, nothing else needed.
+* [COVID-19 Simulation (XMILE)](sim-covid-19-xmile.ipynb) The underlying simulation was created in XMILE using Stella Architect, but the Jupyter notebook is fully functional even if you don't have a Stella Architect license. The Stella Architect file is in `simulation_models/sir_model.stmx`
 
 
 
@@ -41,8 +39,7 @@ Then follow these steps:
 1. On the command line, move into a directory where you would like to store the COVID-19 repository. 
 2. Clone this repository: ```git clone https://github.com/transentis/sim-covid-19.git```
 3. Install a virtual environment in that directory: ```python3 -m venv venv```
-4. Activate the virtual environment: ```source venv/bin/activate``` (MacOS/Linux) or ``:w
-`venv\scripts\activate.bat``` (Windows)
+4. Activate the virtual environment: ```source venv/bin/activate``` (MacOS/Linux) or ```venv\scripts\activate.bat``` (Windows)
 5. Install the necessary python modules: ```pip install -r requirements.txt```
 7. Install Jupyter widgets (for the interactive dashboard): ```jupyter labextension install @jupyter-widgets/jupyterlab-manager```
 8. Start JupyerLab: ```jupyter lab```
@@ -51,10 +48,10 @@ Then follow these steps:
 
 ## Running the dashboard using Voila
 
-You can run the dashboard locally using [Voila](https://voila.readthedocs.io/en/stable/). Follow  these steps:
+Next to the full Jupyter notebook we have also included a stripped down version that only includes the interactive dashboard. You can run the dashboard locally using [Voila](https://voila.readthedocs.io/en/stable/). Follow  these steps:
 
 1. Install voila:    ```pip install voila```
-2. Run voila: ```voila sim-covid-19_dashboard_only.ipynb```
+2. Run the dashboard: ```voila sim-covid-19_dashboard_only.ipynb```
 
 This will run the dashboard and open it in your browser.
 
