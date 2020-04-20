@@ -8,4 +8,4 @@ RUN jupyter nbextension enable --py widgetsnbextension
 
 EXPOSE 80
 
-CMD ["voila","--no-browser","--port=80"," --MappingKernelManager.cull_interval=10 --MappingKernelManager.cull_idle_timeout=10","sim-covid-19_dashboard_only.ipynb"]
+CMD ["voila","--no-browser","--port=80","--MappingKernelManager.cull_interval=30","--MappingKernelManager.cull_idle_timeout=150","sim-covid-19_dashboard_only.ipynb"]
