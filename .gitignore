@@ -1,3 +1,5 @@
+*.ipynb_checkpoints
+*.idea
 *.zip
 /images_workshop
 .DS_Store
