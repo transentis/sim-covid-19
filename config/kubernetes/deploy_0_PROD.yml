@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${APP_ID}
+  labels:
+    app: ${APP_ID}
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: ${APP_ID}
+  template:
+    metadata:
+      labels:
+        app: ${APP_ID}
+    spec:
+      containers:
+      - name: ${APP_ID}
+        image: ${AWS_REGISTRY_URL_PROD}:master
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 80
