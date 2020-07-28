@@ -1,0 +1,50 @@
+{
+  "Covid19": {
+    "type": "abm",
+    "name": "COVID-19",
+    "model": "src.model.simulation_model.SimulationModel",
+    "scenarios": {
+      "base": {
+        "runspecs": {
+          "starttime": 0,
+          "stoptime": 360,
+          "dt": 1
+        },
+        "properties": {
+          "infected": {
+            "type": "Integer",
+            "value": 0
+          },
+          "size_X": {
+            "type": "Integer",
+            "value": 20
+          },
+          "size_Y": {
+            "type": "Integer",
+            "value": 50
+          },
+            "infectivity":{
+                "type": "Float",
+                "value": 0.007
+            },
+            "contact_rate":{
+                "type": "Integer",
+                "value": 20
+            }
+        },
+        "agents": [
+          {
+            "name": "person",
+            "count": 8000,
+            "properties": {
+              "infected": {
+                "type": "Integer",
+                "value": 0
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
