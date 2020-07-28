@@ -1,3 +1,5 @@
+.idea/
+*.ipynb_checkpoints/
 *.zip
 /images_workshop
 .DS_Store
@@ -8,7 +10,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+.elasticbeanstalk
 # Distribution / packaging
 .Python
 build/
