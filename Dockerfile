@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.8
 ADD sim-covid-19_dashboard_only.ipynb /
 ADD src /src/
 RUN mkdir /simulation_models
