@@ -1,6 +1,6 @@
 {
     "smSirXMILE":{
-        "source":"simulation_models/sir_model.stmx",
+        "source":"simulation_models/sir_model_advanced.stmx",
         "model":"simulation_models/sir_model",
          "scenarios":{
             "base":{},
