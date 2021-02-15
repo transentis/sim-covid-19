@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, make_response
 import BPTK_Py
 import pandas as pd
 from BPTK_Py import Model
@@ -114,7 +114,9 @@ def run():
     application.logger.info("Request is JSON: {}".format(request.data))
     
     if not request.is_json:
-        return '{"error": "please pass the request with content-type application/json"}'
+        resp = make_response('{"error": "please pass the request with content-type application/json"}',500)
+        resp.headers['Content-Type'] = 'application/json'
+        return resp
         
     content = request.get_json()
     
@@ -135,17 +137,23 @@ def run():
     try:
         scenario_managers=content["scenario_managers"]
     except KeyError:
-        return '{"error": "expecting scenario_managers to be set"}'
+        resp = make_response('{"error": "expecting scenario_managers to be set"}',500)
+        resp.headers['Content-Type']='application/json'
+        return resp
     
     try:
         scenarios=content["scenarios"]
     except KeyError:
-        return '{"error": "expecting scenario_managers to be set"}'
+        resp = make_response('{"error": "expecting scenario_managers to be set"}',500)
+        resp.headers['Content-Type']='application/json'
+        return resp
         
     try:
         equations=content["equations"]
     except KeyError:
-        return '{"error": "expecting equations to be set"}'
+        resp = make_response('{"error": "expecting equations to be set"}',500)
+        resp.headers['Content-Type']='application/json'
+        return resp
       
         
     result = bptk.plot_scenarios(
@@ -156,10 +164,13 @@ def run():
         )
        
     if result is not None:
-        return result.to_json()
+        resp = make_response(result.to_json(), 200)
     else:
-        return '{"error": "no data was return from simulation"}'
+        resp = make_response('{"error": "no data was return from simulation"}', 500)
 
+    resp.headers['Content-Type'] = 'application/json'
+    return resp
+    
 if __name__ == "__main__":
     application.debug = False
     application.run(host='0.0.0.0')    
