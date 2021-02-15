@@ -4,8 +4,7 @@ import pandas as pd
 from BPTK_Py import Model
 from BPTK_Py import sd_functions as sd
 
-app = Flask(__name__)
-app.config["DEBUG"] = True
+application = Flask(__name__)
 
 model = Model(starttime=1.0,stoptime=1500.0,dt=1.0,name='COVID Simulation Model')
 
@@ -105,14 +104,14 @@ bptk.reset_simulation_model(scenario_manager="smSir", scenario="dashboard")
 
 # rest API
 
-@app.route('/', methods=['GET'])
+@application.route('/', methods=['GET'])
 def home():
     return "<h1>BPTK-Py Simulation Service</h1>"
 
-@app.route('/run', methods=['POST','PUT'])
+@application.route('/run', methods=['POST','PUT'])
 def run():
-    app.logger.info("Request is JSON: {}".format(request.is_json))
-    app.logger.info("Request is JSON: {}".format(request.data))
+    application.logger.info("Request is JSON: {}".format(request.is_json))
+    application.logger.info("Request is JSON: {}".format(request.data))
     
     if not request.is_json:
         return '{"error": "please pass the request with content-type application/json"}'
@@ -130,7 +129,7 @@ def run():
                     scenario.constants[constant_name]=constant_settings                   
                     
     except KeyError:
-        app.logger.info("Settings not specified")
+        application.logger.info("Settings not specified")
         pass
     
     try:
@@ -161,5 +160,6 @@ def run():
     else:
         return '{"error": "no data was return from simulation"}'
 
-
-app.run()
+if __name__ == "__main__":
+    application.debug = False
+    application.run(host='0.0.0.0')    
