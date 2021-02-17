@@ -95,7 +95,17 @@ bptk.register_model(model)
 bptk.register_scenario_manager({"smSir":{"model":model}})
 bptk.register_scenarios(
     scenarios ={
-        "dashboard":{}
+        "dashboard":{},
+        "contactTenPeople": {
+            "constants":{
+                "contact_rate":10
+            }
+        },
+        "contactTwoPeople": {
+            "constants":{
+                "contact_rate":2
+            }
+        }
     },
     scenario_manager="smSir")
 
