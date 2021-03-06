@@ -126,6 +126,7 @@ def run():
     if not request.is_json:
         resp = make_response('{"error": "please pass the request with content-type application/json"}',500)
         resp.headers['Content-Type'] = 'application/json'
+        resp.headers['Access-Control-Allow-Origin']='*'
         return resp
         
     content = request.get_json()
@@ -149,6 +150,7 @@ def run():
     except KeyError:
         resp = make_response('{"error": "expecting scenario_managers to be set"}',500)
         resp.headers['Content-Type']='application/json'
+        resp.headers['Access-Control-Allow-Origin']='*'
         return resp
     
     try:
@@ -156,6 +158,7 @@ def run():
     except KeyError:
         resp = make_response('{"error": "expecting scenario_managers to be set"}',500)
         resp.headers['Content-Type']='application/json'
+        resp.headers['Access-Control-Allow-Origin']='*'
         return resp
         
     try:
@@ -163,6 +166,7 @@ def run():
     except KeyError:
         resp = make_response('{"error": "expecting equations to be set"}',500)
         resp.headers['Content-Type']='application/json'
+        resp.headers['Access-Control-Allow-Origin']='*'
         return resp
       
         
@@ -179,6 +183,7 @@ def run():
         resp = make_response('{"error": "no data was return from simulation"}', 500)
 
     resp.headers['Content-Type'] = 'application/json'
+    resp.headers['Access-Control-Allow-Origin']='*'
     return resp
     
 if __name__ == "__main__":
