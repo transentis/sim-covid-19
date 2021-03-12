@@ -72,8 +72,6 @@ death_rate.equation = infectious*lethality
 contact_number.equation=contact_rate*infectivity*duration
 reproduction_rate.equation=contact_number*(susceptible/total_population)
 
-contact_rate.equation=20
-
 contact_rate.equation=dashboard_on*dashboard_contact_rate+(-dashboard_on+1.0)*variable_contact_rate
 dashboard_on.equation=1.0
 distancing_on.equation=0.0
@@ -98,12 +96,12 @@ bptk.register_scenarios(
         "dashboard":{},
         "contactTenPeople": {
             "constants":{
-                "contact_rate":10
+                "normal_contact_rate":10
             }
         },
         "contactTwoPeople": {
             "constants":{
-                "contact_rate":2
+                "normal_contact_rate":2
             }
         }
     },
@@ -139,7 +137,11 @@ def run():
                 scenario = bptk.get_scenario(scenario_manager_name,scenario_name)
                 constants = scenario_settings["constants"]
                 for constant_name, constant_settings in constants.items():
-                    scenario.constants[constant_name]=constant_settings                   
+                    scenario.constants[constant_name]=constant_settings
+                points = scenario_settings["points"]
+                for points_name, points_settings in points.items():
+                    scenario.points[points_name]=points_settings
+                bptk.reset_simulation_model(scenario_manager=scenario_manager_name,scenario=scenario_name)
                     
     except KeyError:
         application.logger.info("Settings not specified")
@@ -180,7 +182,7 @@ def run():
     if result is not None:
         resp = make_response(result.to_json(), 200)
     else:
-        resp = make_response('{"error": "no data was return from simulation"}', 500)
+        resp = make_response('{"error": "no data was returned from simulation"}', 500)
 
     resp.headers['Content-Type'] = 'application/json'
     resp.headers['Access-Control-Allow-Origin']='*'
