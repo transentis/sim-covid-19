@@ -19,17 +19,11 @@ death_rate = model.flow("death_rate") # the rate at which people are dying from 
 
 infectivity = model.constant("infectivity") # the infectivity of the corona virus
 lethality = model.constant("lethality") # the lethality of the corona virus
-normal_contact_rate=model.constant("normal_contact_rate") # the average contact rate between people in "normal" times
 duration = model.constant("duration") # the average time it takes to recover from the virus
 
 intensive_available = model.constant("intensive_available") # the number of intensive care units available
 intensive_percentage = model.constant("intensive_percentage") # the fraction of people needing intensive care
 
-dashboard_on=model.constant("dashboard_on") # should be equal to 1.0 for dashboard scenario and 0.0 otherwise
-distancing_on=model.constant("distancing_on") # defines whether social distancing is on within an interactive scenario
-distancing_contact_rate=model.constant("distancing_contact_rate") # interactive scenario: the contact rate when practicing social distancing
-distancing_begin=model.constant("distancing_begin") # interactive scenario: when to begin social distancing
-distancing_duration=model.constant("distancing_duration")# interactive scenario: when social distancing ends and we return to normal behavior
 
 total_population = model.converter("total_population") # the total population, i.e the sum of susceptible, infected and recovered
 contact_rate = model.converter("contact_rate") # the rate at which people are being contacted, in all scenarios
@@ -39,9 +33,6 @@ intensive_needed = model.converter("intensive_needed") # the number of intensive
 contact_number = model.converter("contact_number") #  measures which fraction of a susceptible population is infected by a contagious person
 reproduction_rate = model.converter("reproduction_rate") # measures the rate at which an epidemic reproduces
 
-variable_contact_rate=model.converter("variable_contact_rate") # the variable contact rate used in the detailed scenarios
-dashboard_with_distancing_contact_rate=model.converter("dashboard_with_distancing_contact_rate") # the contact rate used in interactive scenarios with distancing on
-dashboard_contact_rate=model.converter("dashboard_contact_rate") # the contact rate used in interactive scenarios with distancing off
 
 susceptible.initial_value = 80000000.0
 infectious.initial_value = 120.0
@@ -72,21 +63,12 @@ death_rate.equation = infectious*lethality
 contact_number.equation=contact_rate*infectivity*duration
 reproduction_rate.equation=contact_number*(susceptible/total_population)
 
-contact_rate.equation=dashboard_on*dashboard_contact_rate+(-dashboard_on+1.0)*variable_contact_rate
-dashboard_on.equation=1.0
-distancing_on.equation=0.0
-dashboard_contact_rate.equation=distancing_on*dashboard_with_distancing_contact_rate+(-distancing_on+1.0)*normal_contact_rate
-dashboard_with_distancing_contact_rate.equation=sd.If(sd.Or(sd.time()<distancing_begin,sd.time()>distancing_begin+distancing_duration),normal_contact_rate,distancing_contact_rate)
-normal_contact_rate.equation=20.0
-distancing_contact_rate.equation=2.0
-distancing_begin.equation=20.0
-distancing_duration.equation=200.0
+contact_rate.equation=sd.lookup(sd.time(),"contact_rate_table")
 
-variable_contact_rate.equation=sd.lookup(sd.time(),"variable_contact_rate")
 
-variable_contact_rate_points = [[0,20.0],[1500,20.0]]
+contact_rate_table = [[0,20.0],[1500,20.0]]
 
-model.points["variable_contact_rate"]=variable_contact_rate_points
+model.points["contact_rate_table"]=contact_rate_table
 
 bptk = BPTK_Py.bptk()
 bptk.register_model(model)
@@ -94,16 +76,6 @@ bptk.register_scenario_manager({"smSir":{"model":model}})
 bptk.register_scenarios(
     scenarios ={
         "dashboard":{},
-        "contactTenPeople": {
-            "constants":{
-                "normal_contact_rate":10
-            }
-        },
-        "contactTwoPeople": {
-            "constants":{
-                "normal_contact_rate":2
-            }
-        }
     },
     scenario_manager="smSir")
 
@@ -189,5 +161,5 @@ def run():
     return resp
     
 if __name__ == "__main__":
-    application.debug = False
+    application.debug = True
     application.run(host='0.0.0.0')    
