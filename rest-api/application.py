@@ -76,6 +76,29 @@ bptk.register_scenario_manager({"smSir":{"model":model}})
 bptk.register_scenarios(
     scenarios ={
         "dashboard":{},
+        "base":{},
+        "strong_social_distancing":{
+            "points":{
+                "contact_rate_table":[
+                    [0,20.0],
+                    [25,10.0],
+                    [41,5.0],
+                    [500,10.0],
+                    [1200,20.0],
+                    [1500,20.0]
+                ]
+            }
+        },
+        "weak_social_distancing":{
+            "points":{
+                "contact_rate_table":[
+                    [0,20.0],
+                    [10,2],
+                    [100,20],
+                    [1500,20.0]
+                ]
+            }
+        }
     },
     scenario_manager="smSir")
 
