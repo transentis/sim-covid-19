@@ -187,12 +187,10 @@ def run():
 @application.route('/scenarios', methods=['GET'])
 
 def scenarios():
-    try:
     scenarions = []
     for scenario in bptk.get_scenarios():
         scenarions.append(scenario)
     return json.dumps(scenarions)
-
 
 if __name__ == "__main__":
     application.debug = True
