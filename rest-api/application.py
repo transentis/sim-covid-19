@@ -3,6 +3,7 @@ import BPTK_Py
 import pandas as pd
 from BPTK_Py import Model
 from BPTK_Py import sd_functions as sd
+import json
 
 application = Flask(__name__)
 
@@ -182,7 +183,17 @@ def run():
     resp.headers['Content-Type'] = 'application/json'
     resp.headers['Access-Control-Allow-Origin']='*'
     return resp
-    
+
+@application.route('/scenarios', methods=['GET'])
+
+def scenarios():
+    try:
+    scenarions = []
+    for scenario in bptk.get_scenarios():
+        scenarions.append(scenario)
+    return json.dumps(scenarions)
+
+
 if __name__ == "__main__":
     application.debug = True
     application.run(host='0.0.0.0')    
