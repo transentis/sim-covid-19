@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, make_response
+from flask import Flask, redirect, url_for, request, make_response, jsonify
 import BPTK_Py
 import pandas as pd
 from BPTK_Py import Model
@@ -185,12 +185,31 @@ def run():
     return resp
 
 @application.route('/scenarios', methods=['GET'])
-
 def scenarios():
+    
+    application.logger.info("Request is JSON: {}".format(request.is_json))
+    application.logger.info("Request is JSON: {}".format(request.data))
+    
+    if not request.is_json:
+        resp = make_response('{"error": "please pass the request with content-type application/json"}',500)
+        resp.headers['Content-Type'] = 'application/json'
+        resp.headers['Access-Control-Allow-Origin']='*'
+        return resp    
+
+
     scenarions = []
     for scenario in bptk.get_scenarios():
         scenarions.append(scenario)
-    return json.dumps(scenarions)
+    scenarions = jsonify(scenarions)
+    
+    if scenarions is not None:
+        resp = make_response(scenarions, 200)
+    else:
+        resp = make_response('{"error": "no data was returned from simulation"}', 500)
+        
+    return resp
+
+
 
 if __name__ == "__main__":
     application.debug = True
