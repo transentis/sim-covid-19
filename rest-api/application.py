@@ -208,7 +208,47 @@ def scenarios():
         resp = make_response('{"error": "no data was returned from simulation"}', 500)
         
     return resp
+@application.route('/equations_names', methods=['GET'])
 
+def equation_names():
+    application.logger.info("Request is JSON: {}".format(request.is_json))
+    application.logger.info("Request is JSON: {}".format(request.data))
+    
+    if not request.is_json:
+        resp = make_response('{"error": "please pass the request with content-type application/json"}',500)
+        resp.headers['Content-Type'] = 'application/json'
+        resp.headers['Access-Control-Allow-Origin']='*'
+        return resp
+    
+    equations_names = {}
+
+    stock_names = []
+    for key, value in model.stocks.items():
+        stock_names.append(key)
+
+    flows_names = []
+    for key, value in model.flows.items():
+        flows_names.append(key)
+
+    constants_names = []
+    for key, values in model.constants.items():
+        constants_names.append(key)
+
+    points_names = []
+    for key, values in model.points.items():
+        points_names.append(key)
+    
+    equations_names["Stocks"] = [name for name in stock_names]
+    equations_names["flows"] = [name for name in flows_names]
+    equations_names["constants"] = [name for name in constants_names]
+    equations_names["points"] = [name for name in points_names]
+    
+    if equations_names is not None:
+        resp = make_response(equations_names, 200)
+    else:
+        resp = make_response('{"error": "no data was returned from simulation"}', 500)
+        
+    return resp
 
 
 if __name__ == "__main__":
