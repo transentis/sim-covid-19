@@ -199,8 +199,7 @@ def scenarios():
     return resp
 @application.route('/equations', methods=['GET'])
 
-def equations_names():
-    
+def equations():
     equations_names = {}
 
     stock_names = []
@@ -219,7 +218,7 @@ def equations_names():
     for key, values in model.points.items():
         points_names.append(key)
     
-    equations_names["Stocks"] = [name for name in stock_names]
+    equations_names["stocks"] = [name for name in stock_names]
     equations_names["flows"] = [name for name in flows_names]
     equations_names["constants"] = [name for name in constants_names]
     equations_names["points"] = [name for name in points_names]
