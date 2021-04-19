@@ -186,17 +186,6 @@ def run():
 
 @application.route('/scenarios', methods=['GET'])
 def scenarios():
-    
-    application.logger.info("Request is JSON: {}".format(request.is_json))
-    application.logger.info("Request is JSON: {}".format(request.data))
-    
-    if not request.is_json:
-        resp = make_response('{"error": "please pass the request with content-type application/json"}',500)
-        resp.headers['Content-Type'] = 'application/json'
-        resp.headers['Access-Control-Allow-Origin']='*'
-        return resp    
-
-
     scenarions = []
     for scenario in bptk.get_scenarios():
         scenarions.append(scenario)
@@ -208,17 +197,9 @@ def scenarios():
         resp = make_response('{"error": "no data was returned from simulation"}', 500)
         
     return resp
-@application.route('/equations_names', methods=['GET'])
+@application.route('/equations', methods=['GET'])
 
-def equation_names():
-    application.logger.info("Request is JSON: {}".format(request.is_json))
-    application.logger.info("Request is JSON: {}".format(request.data))
-    
-    if not request.is_json:
-        resp = make_response('{"error": "please pass the request with content-type application/json"}',500)
-        resp.headers['Content-Type'] = 'application/json'
-        resp.headers['Access-Control-Allow-Origin']='*'
-        return resp
+def equations_names():
     
     equations_names = {}
 
