@@ -11,8 +11,6 @@ __pycache__/
 
 # C extensions
 *.so
-.elasticbeanstalk
-.ebignore
 # Distribution / packaging
 .Python
 build/
