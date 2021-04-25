@@ -106,6 +106,8 @@ bptk.register_scenarios(
 
 bptk.reset_simulation_model(scenario_manager="smSir", scenario="dashboard")
 
+
+
 # rest API
 
 @application.route('/', methods=['GET'])
@@ -186,39 +188,57 @@ def run():
 
 @application.route('/scenarios', methods=['GET'])
 def scenarios():
-    scenarions = []
+    scenarios = []
     for scenario in bptk.get_scenarios():
-        scenarions.append(scenario)
-    scenarions = jsonify(scenarions)
+        scenarios.append(scenario)
+    scenarios = jsonify(scenarios)
     
-    if scenarions is not None:
-        resp = make_response(scenarions, 200)
+    if scenarios is not None:
+        resp = make_response(scenarios, 200)
     else:
         resp = make_response('{"error": "no data was returned from simulation"}', 500)
         
     return resp
-@application.route('/equations', methods=['GET'])
 
+@application.route('/equations', methods=['POST'])
 def equations():
-    equations_names = {}
-
-    stock_names = []
-    for key, value in model.stocks.items():
-        stock_names.append(key)
-
-    flows_names = []
-    for key, value in model.flows.items():
-        flows_names.append(key)
-
-    constants_names = []
-    for key, values in model.constants.items():
-        constants_names.append(key)
-
-    points_names = []
-    for key, values in model.points.items():
-        points_names.append(key)
     
-    equations_names["stocks"] = [name for name in stock_names]
+    content = request.get_json()
+    try:
+        settings = content["settings"]
+
+        for scenario_manager_name, scenario_manager_data in settings.items():
+            for scenario_name, scenario_settings in scenario_manager_data.items():
+                scenario = bptk.get_scenario(scenario_manager_name,scenario_name)
+                
+    except KeyError:
+        application.logger.info("Settings not specified")
+        pass
+    
+    equations_names = {}
+    stocks_names = set()
+    flows_names = set()
+    converters_names = set()
+    constants_names = set()
+    points_names = set()
+    
+    for equation in sorted(scenario.model.stocks):
+        stocks_names.add(equation)
+    for equation in sorted(scenario.model.flows):
+        flows_names.add(equation)
+    for equation in sorted(scenario.model.converters):
+        converters_names.add(equation)
+    for equation in sorted(scenario.model.constants):
+        constants_names.add(equation)
+    for equation in sorted(scenario.model.points):
+        points_names.add(equation)
+      
+    equations_names["stocks"] = [name for name in stocks_names]
+    equations_names["flows"] = [name for name in flows_names]
+    equations_names["converters"] = [name for name in converters_names]
+    equations_names["constants"] = [name for name in constants_names]
+    equations_names["points"] = [name for name in points_names]
+    equations_names["stocks"] = [name for name in stocks_names]
     equations_names["flows"] = [name for name in flows_names]
     equations_names["constants"] = [name for name in constants_names]
     equations_names["points"] = [name for name in points_names]
@@ -229,7 +249,6 @@ def equations():
         resp = make_response('{"error": "no data was returned from simulation"}', 500)
         
     return resp
-
 
 if __name__ == "__main__":
     application.debug = True
