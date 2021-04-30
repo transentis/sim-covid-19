@@ -204,16 +204,10 @@ def scenarios():
 def equations():
     
     content = request.get_json()
-    try:
-        settings = content["settings"]
-
-        for scenario_manager_name, scenario_manager_data in settings.items():
-            for scenario_name, scenario_settings in scenario_manager_data.items():
-                scenario = bptk.get_scenario(scenario_manager_name,scenario_name)
-                
-    except KeyError:
-        application.logger.info("Settings not specified")
-        pass
+    scenario_manager_name = content["scenarioManager"][0]
+    scenario_name = content["scenario"][0]
+  
+    scenario = bptk.get_scenario(scenario_manager_name,scenario_name)
     
     equations_names = {}
     stocks_names = set()
