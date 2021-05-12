@@ -5,7 +5,8 @@ from BPTK_Py import Model
 from BPTK_Py import sd_functions as sd
 import json
 
-application = Flask(__name__)
+from BPTK_Py.server import BptkServer
+
 
 model = Model(starttime=1.0,stoptime=1500.0,dt=1.0,name='COVID Simulation Model')
 
@@ -106,144 +107,8 @@ bptk.register_scenarios(
 
 bptk.reset_simulation_model(scenario_manager="smSir", scenario="dashboard")
 
-
-
-# rest API
-
-@application.route('/', methods=['GET'])
-def home():
-    return "<h1>BPTK-Py Simulation Service</h1>"
-
-@application.route('/run', methods=['POST','PUT'])
-def run():
-    application.logger.info("Request is JSON: {}".format(request.is_json))
-    application.logger.info("Request is JSON: {}".format(request.data))
-    
-    if not request.is_json:
-        resp = make_response('{"error": "please pass the request with content-type application/json"}',500)
-        resp.headers['Content-Type'] = 'application/json'
-        resp.headers['Access-Control-Allow-Origin']='*'
-        return resp
-        
-    content = request.get_json()
-    
-    try:
-        settings = content["settings"]
-
-        for scenario_manager_name, scenario_manager_data in settings.items():
-            for scenario_name, scenario_settings in scenario_manager_data.items():
-                scenario = bptk.get_scenario(scenario_manager_name,scenario_name)
-                constants = scenario_settings["constants"]
-                for constant_name, constant_settings in constants.items():
-                    scenario.constants[constant_name]=constant_settings
-                points = scenario_settings["points"]
-                for points_name, points_settings in points.items():
-                    scenario.points[points_name]=points_settings
-                bptk.reset_simulation_model(scenario_manager=scenario_manager_name,scenario=scenario_name)
-                    
-    except KeyError:
-        application.logger.info("Settings not specified")
-        pass
-    
-    try:
-        scenario_managers=content["scenario_managers"]
-    except KeyError:
-        resp = make_response('{"error": "expecting scenario_managers to be set"}',500)
-        resp.headers['Content-Type']='application/json'
-        resp.headers['Access-Control-Allow-Origin']='*'
-        return resp
-    
-    try:
-        scenarios=content["scenarios"]
-    except KeyError:
-        resp = make_response('{"error": "expecting scenario_managers to be set"}',500)
-        resp.headers['Content-Type']='application/json'
-        resp.headers['Access-Control-Allow-Origin']='*'
-        return resp
-        
-    try:
-        equations=content["equations"]
-    except KeyError:
-        resp = make_response('{"error": "expecting equations to be set"}',500)
-        resp.headers['Content-Type']='application/json'
-        resp.headers['Access-Control-Allow-Origin']='*'
-        return resp
-      
-        
-    result = bptk.plot_scenarios(
-          scenario_managers=scenario_managers,
-          scenarios=scenarios,
-          equations=equations,
-          return_df=True
-        )
-       
-    if result is not None:
-        resp = make_response(result.to_json(), 200)
-    else:
-        resp = make_response('{"error": "no data was returned from simulation"}', 500)
-
-    resp.headers['Content-Type'] = 'application/json'
-    resp.headers['Access-Control-Allow-Origin']='*'
-    return resp
-
-@application.route('/scenarios', methods=['GET'])
-def scenarios():
-    scenarios = []
-    for scenario in bptk.get_scenarios():
-        scenarios.append(scenario)
-    scenarios = jsonify(scenarios)
-    
-    if scenarios is not None:
-        resp = make_response(scenarios, 200)
-    else:
-        resp = make_response('{"error": "no data was returned from simulation"}', 500)
-        
-    return resp
-
-@application.route('/equations', methods=['POST'])
-def equations():
-    
-    content = request.get_json()
-    scenario_manager_name = content["scenarioManager"][0]
-    scenario_name = content["scenario"][0]
-  
-    scenario = bptk.get_scenario(scenario_manager_name,scenario_name)
-    
-    equations_names = {}
-    stocks_names = set()
-    flows_names = set()
-    converters_names = set()
-    constants_names = set()
-    points_names = set()
-    
-    for equation in sorted(scenario.model.stocks):
-        stocks_names.add(equation)
-    for equation in sorted(scenario.model.flows):
-        flows_names.add(equation)
-    for equation in sorted(scenario.model.converters):
-        converters_names.add(equation)
-    for equation in sorted(scenario.model.constants):
-        constants_names.add(equation)
-    for equation in sorted(scenario.model.points):
-        points_names.add(equation)
-      
-    equations_names["stocks"] = [name for name in stocks_names]
-    equations_names["flows"] = [name for name in flows_names]
-    equations_names["converters"] = [name for name in converters_names]
-    equations_names["constants"] = [name for name in constants_names]
-    equations_names["points"] = [name for name in points_names]
-    equations_names["stocks"] = [name for name in stocks_names]
-    equations_names["flows"] = [name for name in flows_names]
-    equations_names["constants"] = [name for name in constants_names]
-    equations_names["points"] = [name for name in points_names]
-    
-    if equations_names is not None:
-        resp = make_response(equations_names, 200)
-    else:
-        resp = make_response('{"error": "no data was returned from simulation"}', 500)
-        
-    return resp
+# Calling the BptkServer class
+application = BptkServer(__name__, bptk) 
 
 if __name__ == "__main__":
-    application.debug = True
-    application.run(host='0.0.0.0')    
+    application.run()
