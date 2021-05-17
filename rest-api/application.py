@@ -73,8 +73,7 @@ contact_rate_table = [[0,20.0],[1500,20.0]]
 model.points["contact_rate_table"]=contact_rate_table
 
 bptk = BPTK_Py.bptk()
-bptk.register_model(model)
-bptk.register_scenario_manager({"smSir":{"model":model}})
+bptk.register_model(model,"smSir")
 bptk.register_scenarios(
     scenarios ={
         "dashboard":{},
