@@ -4,7 +4,13 @@ async-generator==1.10
 attrs==20.3.0
 backcall==0.2.0
 bleach==3.3.0
+<<<<<<< HEAD
+BPTK-Py==1.1.24
+||||||| c2f944a
+BPTK-Py==1.1.21
+=======
 BPTK-Py
+>>>>>>> b2fa62652dfb7cdee7a3345a315b04e47a603d5e
 cachetools==4.2.1
 certifi==2020.12.5
 cffi==1.14.5
