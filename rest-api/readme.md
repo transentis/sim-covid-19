@@ -11,3 +11,7 @@ To run the COVID-19 server locally, just run the shellscript `run_server.sh`.
 Currently the server just supports one request, the /run request. This request accepts JSON structure similar to the BPTK scenario definition file as an input and responds with the relevant data.
 
 For now we are keeping sample queries and the documentation in [Postman](https://transentis.postman.co) in the COVID-SIM API Gateway collections (use the local collection to test the server locally).
+
+## Deploy to aws
+
+Deploy via `eb deploy --profile development`.
