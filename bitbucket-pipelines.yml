@@ -1,92 +1,14 @@
-# enable Docker for your repository
 options:
-  docker: true
-image: atlassian/default-image:2
+    docker: true
+image: transentis/buildenv #python image with awscli and awsebcli installed
+
 pipelines:
-  branches:
-    master:
-      - step:
-          #python image with aws-cli installed
-          image: dschroeck/awscli
-          name :  "Build and Push to Docker Registry"
-          script:
-            # aws login
-            - git submodule update --init --recursive
-            - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION} --no-include-email)
-            # docker
-            - export BUILD_ID=$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
-            - docker build -t ${AWS_REGISTRY_URL}:$BUILD_ID .
-            - docker push ${AWS_REGISTRY_URL}:$BUILD_ID
-            - docker tag ${AWS_REGISTRY_URL}:$BUILD_ID ${AWS_REGISTRY_URL}:master
-            - docker push ${AWS_REGISTRY_URL}:master
-      - step:
-            name: "Scale down to 0"
-            #deployment: test
-            script:
-            - envsubst < config/kubernetes/deploy_0.yml > config/kubernetes/ready_deploy_0.yml
-            - pipe: atlassian/aws-eks-kubectl-run:1.2.3
-              variables:
-                AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-                AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-                AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-                CLUSTER_NAME: "test-env"
-                KUBECTL_COMMAND: "apply"
-                RESOURCE_PATH: "config/kubernetes/ready_deploy_0.yml"
-                DEBUG: "true"
-      - step:
-          name: "Deploy to TEST with Replica count = 1"
-          deployment: test
-          script:
-            - envsubst < config/kubernetes/deployment.yml > config/kubernetes/ready_deployment.yml
-            - pipe: atlassian/aws-eks-kubectl-run:1.2.3
-              variables:
-                AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-                AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-                AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-                CLUSTER_NAME: "test-env"
-                KUBECTL_COMMAND: "apply"
-                RESOURCE_PATH: "config/kubernetes/ready_deployment.yml"
-                DEBUG: "true"
-    prod:
-          - step:
-              #python image with aws-cli installed
-              image: dschroeck/awscli
-              name :  "Build and Push to Docker Registry"
-              script:
-                # aws login
-                - git submodule update --init --recursive
-                - eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION_PROD} --no-include-email)
-                # docker
-                - export BUILD_ID=$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
-                - docker build -t ${AWS_REGISTRY_URL_PROD}:$BUILD_ID .
-                - docker push ${AWS_REGISTRY_URL_PROD}:$BUILD_ID
-                - docker tag ${AWS_REGISTRY_URL_PROD}:$BUILD_ID ${AWS_REGISTRY_URL_PROD}:master
-                - docker push ${AWS_REGISTRY_URL_PROD}:master
-          - step:
-                name: "Scale down to 0"
-                #deployment: test
+    branches:
+        release/test:
+            - step:
+                deployment: test
+                name: 'Deploy to development environment'
                 script:
-                - envsubst < config/kubernetes/deploy_0.yml > config/kubernetes/ready_deploy_0.yml
-                - pipe: atlassian/aws-eks-kubectl-run:1.2.3
-                  variables:
-                    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID_PROD}
-                    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY_PROD}
-                    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION_PROD}
-                    CLUSTER_NAME: "test-env"
-                    KUBECTL_COMMAND: "apply"
-                    RESOURCE_PATH: "config/kubernetes/ready_deploy_0.yml"
-                    DEBUG: "true"
-          - step:
-              name: "Deploy to TEST with Replica count = 1"
-              deployment: test
-              script:
-                - envsubst < config/kubernetes/deployment.yml > config/kubernetes/ready_deployment.yml
-                - pipe: atlassian/aws-eks-kubectl-run:1.2.3
-                  variables:
-                    AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID_PROD}
-                    AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY_PROD}
-                    AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION_PROD}
-                    CLUSTER_NAME: "test-env"
-                    KUBECTL_COMMAND: "apply"
-                    RESOURCE_PATH: "config/kubernetes/ready_deployment.yml"
-                    DEBUG: "true"
+                      - cd rest-api
+                      - AWS_ACCESS_KEY_ID=${TEST_AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${TEST_AWS_SECRET_ACCESS_KEY} eb deploy
+
