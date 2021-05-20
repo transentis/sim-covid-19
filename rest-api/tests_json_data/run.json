@@ -1,0 +1,92 @@
+{
+    "scenario_managers": [
+        "smSir"
+    ],
+    "scenarios": [
+        "dashboard"
+    ],
+    "equations": [
+        "contact_rate",
+        "infectious",
+        "recovered",
+        "deceased",
+        "intensive_needed",
+        "intensive_available"
+    ],
+    "settings": {
+        "smSir": {
+            "dashboard": {
+                "constants": {
+                },
+                "points": {
+                    "contact_rate_table": [
+                        [
+                            0,
+                            20
+                        ],
+                        [
+                            100,
+                            3.999999999999999
+                        ],
+                        [
+                            200,
+                            7.999999999999998
+                        ],
+                        [
+                            300,
+                            20
+                        ],
+                        [
+                            400,
+                            20
+                        ],
+                        [
+                            500,
+                            20
+                        ],
+                        [
+                            600,
+                            20
+                        ],
+                        [
+                            700,
+                            20
+                        ],
+                        [
+                            800,
+                            20
+                        ],
+                        [
+                            900,
+                            20
+                        ],
+                        [
+                            1000,
+                            20
+                        ],
+                        [
+                            1100,
+                            20
+                        ],
+                        [
+                            1200,
+                            20
+                        ],
+                        [
+                            1300,
+                            20
+                        ],
+                        [
+                            1400,
+                            20
+                        ],
+                        [
+                            1500,
+                            20
+                        ]
+                    ]
+                }
+            }
+        }
+    }
+}
