@@ -14,7 +14,7 @@ pipelines:
                       - AWS_ACCESS_KEY_ID=${TEST_AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${TEST_AWS_SECRET_ACCESS_KEY} eb deploy
         release/prod:
             - step:
-                deployment: prod
+                deployment: production
                 name: 'Deploy to production environment'
                 script:
                       - cd rest-api
