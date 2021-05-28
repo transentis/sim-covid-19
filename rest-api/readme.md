@@ -6,7 +6,21 @@ The API server is currently also deployed on AWS and is used by our [COVID-19 da
 
 ## Run the COVID-19 server locally
 
-To run the COVID-19 server locally, just run the shellscript `run_server.sh`.
+Please note this requires at least Python 3.8  
+
+Follow these steps to install and run this server locally
+
+1) git clone https://github.com/transentis/sim-covid-19 
+
+2) Create a virtual environment and activate it: “source <your venv>/bin/activate”  
+
+3) cd sim-covid-19 && cd rest-api
+
+4) pip3 install -r requirements.txt  
+
+5) ./run_server.sh 
+
+6) You can test this at the url: localhost:5000 which should return a screen “BPTK Simulation Service”
 
 Currently the server just supports one request, the /run request. This request accepts JSON structure similar to the BPTK scenario definition file as an input and responds with the relevant data.
 
