@@ -10,8 +10,6 @@ pipelines:
                 name: 'Build zip file'
                 script:
                       - cd rest-api
-                      - apt-get update && apt-get install -y
-                      - apt-get install zip
                       - zip -r application.zip .
                 artifacts:
                       - application.zip
@@ -34,8 +32,6 @@ pipelines:
                 name: 'Build zip file'
                 script:
                       - cd rest-api
-                      - apt-get update && apt-get install -y
-                      - apt-get install zip
                       - zip -r application.zip .
                 artifacts:
                       - application.zip
