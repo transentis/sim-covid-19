@@ -6,7 +6,6 @@ pipelines:
     branches:
         release/test:
             - step:
-                deployment: Test
                 name: 'Build zip file'
                 script:
                       - cd rest-api
@@ -15,6 +14,7 @@ pipelines:
                       - application.zip
             - step:
                 name: 'Deploy to development environment'
+                deployment: Test
                 script:
                   - pipe: atlassian/aws-elasticbeanstalk-deploy:0.5.0
                     variables:
@@ -28,7 +28,6 @@ pipelines:
                         WAIT: 'true'
         release/prod:
             - step:
-                deployment: Production
                 name: 'Build zip file'
                 script:
                       - cd rest-api
@@ -37,6 +36,7 @@ pipelines:
                       - application.zip
             - step:
                 name: 'Deploy to production environment'
+                deployment: Production
                 script:
                   - pipe: atlassian/aws-elasticbeanstalk-deploy:0.5.0
                     variables:
