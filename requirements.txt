@@ -1,3 +1,5 @@
 bptk_py
 jupyterlab
 flask
+flask_cors
+requests
