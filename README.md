@@ -83,7 +83,7 @@ You can also test the  REST api on the command line via curl: A call to `curl lo
 ]
 ```
 
-There is also a Jupyter notebook [api_tests.ipynb](./rest-api/api_tests.ipynb) in the rest-api directory that illustrates some more advanced queries.
+There is also a Jupyter notebook [api_usage.ipynb](./rest-api/api_usage.ipynb) in the rest-api directory that illustrates some more advanced queries.
 
 ## Get In Touch
 
