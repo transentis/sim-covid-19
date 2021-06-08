@@ -6,17 +6,48 @@ pipelines:
     branches:
         release/test:
             - step:
-                deployment: test
-                name: 'Deploy to development environment'
+                name: 'Build zip file'
                 script:
-                      - cd rest-api
-                      - AWS_ACCESS_KEY_ID=${TEST_AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${TEST_AWS_SECRET_ACCESS_KEY} eb use sim-covid-api-dev
-                      - AWS_ACCESS_KEY_ID=${TEST_AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${TEST_AWS_SECRET_ACCESS_KEY} eb deploy
+                  - echo "Zipping files in the rest-api directory"
+                  - cd rest-api
+                  - zip -r application.zip .
+                artifacts:
+                  - rest-api/application.zip
+            - step:
+                name: 'Deploy to development environment'
+                deployment: Test
+                script:
+                  - echo "Deploying zip file to elasticbeanstalk"
+                  - pipe: atlassian/aws-elasticbeanstalk-deploy:0.5.0
+                    variables:
+                        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                        AWS_DEFAULT_REGION: '$AWS_DEFAULT_REGION'
+                        APPLICATION_NAME: '$AWS_APPLICATION_NAME'
+                        ENVIRONMENT_NAME: '$AWS_ENVIRONMENT_NAME'
+                        S3_BUCKET: '$AWS_S3_BUCKET'
+                        ZIP_FILE: rest-api/application.zip
+                        WAIT: 'true'
         release/prod:
             - step:
-                deployment: production
-                name: 'Deploy to production environment'
+                name: 'Build zip file'
                 script:
                       - cd rest-api
-                      - AWS_ACCESS_KEY_ID=${PROD_AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${PROD_AWS_SECRET_ACCESS_KEY} eb use sim-covid-api-prod
-                      - AWS_ACCESS_KEY_ID=${PROD_AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${PROD_AWS_SECRET_ACCESS_KEY} eb deploy
+                      - zip -r application.zip .
+                artifacts:
+                      - rest-api/application.zip
+            - step:
+                name: 'Deploy to production environment'
+                deployment: Production
+                script:
+                  - pipe: atlassian/aws-elasticbeanstalk-deploy:0.5.0
+                    variables:
+                        AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                        AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                        AWS_DEFAULT_REGION: '$AWS_DEFAULT_REGION'
+                        APPLICATION_NAME: '$AWS_APPLICATION_NAME'
+                        ENVIRONMENT_NAME: '$AWS_ENVIRONMENT_NAME'
+                        S3_BUCKET: '$AWS_S3_BUCKET'
+                        ZIP_FILE: rest-api/application.zip
+                        WAIT: 'true'
+
