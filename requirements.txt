@@ -1,4 +1,4 @@
-bptk_py
+bptk_py==1.1.25
 jupyterlab
 flask
 flask_cors
