@@ -126,7 +126,7 @@ def update_graphs(distancing_on, normal_contact_rate, vis_begin, vis_end, distan
     wdg_distancing_begin.layout.visibility = 'visible' if distancing_on else 'hidden'
     wdg_distancing_duration.layout.visibility = 'visible' if distancing_on else 'hidden'
     
-    bptk.reset_simulation_model(scenario_manager="smSir", scenario="dashboard")
+    bptk.reset_scenario_cache(scenario_manager="smSir", scenario="dashboard")
 
     out_population.clear_output(wait=True)
     out_intensive_care.clear_output(wait=True)
@@ -195,12 +195,14 @@ def update_graphs(distancing_on, normal_contact_rate, vis_begin, vis_end, distan
             x_label="Days",
             y_label="Measure",
             equations=[
-                "contact_number",
-                "reproduction_rate"
+                "infectious",
+                "deceased",
+                "recovered"
             ],
             series_names={
-                "smSir_dashboard_contact_number": "Contact Number",
-                "smSir_dashboard_reproduction_rate": "Reproduction Rate" 
+                "smSir_dashboard_infectious": "Infectious",
+                "smSir_dashboard_deceased": "Deceased",
+                "smSir_dashboard_recovered": "Recovered" 
             },
             visualize_from_period=vis_begin,
             visualize_to_period=vis_end

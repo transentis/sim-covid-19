@@ -117,4 +117,4 @@ bptk.register_scenarios(
     scenario_manager="smSir")
 
 
-bptk.reset_simulation_model(scenario_manager="smSir", scenario="dashboard")
+bptk.reset_scenario_cache(scenario_manager="smSir", scenario="dashboard")

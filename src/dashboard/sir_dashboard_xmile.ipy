@@ -32,7 +32,7 @@ def update_graphs(contact_rate):
 
     wdg_contact_rate.layout.visibility = 'visible'
     
-    bptk.reset_simulation_model(scenario_manager="smSirXMILE", scenario="interactiveScenario")
+    bptk.reset_scenario_cache(scenario_manager="smSirXMILE", scenario="interactiveScenario")
 
     out1.clear_output(wait=True)
     out2.clear_output(wait=True)
